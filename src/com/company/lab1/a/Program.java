@@ -17,9 +17,9 @@ class SharedValue {
         this.slider = slider;
     }
 
-    public synchronized void increment(int value) {
+    public synchronized void modify(int value) {
         this.slider.setValue(this.slider.getValue() + value);
-        //System.out.println(Thread.currentThread().getName() + " : " + this.slider.getValue());
+        System.out.println(Thread.currentThread().getName() + " : " + this.slider.getValue());
     }
 
     @Override
@@ -30,11 +30,11 @@ class SharedValue {
     }
 }
 
-class MyTh implements Runnable {
+class CustomThread implements Runnable {
     private final SharedValue sharedValue;
     private final int value;
 
-    public MyTh(SharedValue sharedValue, int value) {
+    public CustomThread(SharedValue sharedValue, int value) {
         this.sharedValue = sharedValue;
         this.value = value;
     }
@@ -45,7 +45,7 @@ class MyTh implements Runnable {
 
         boolean isInterrupted = false;
         while (!isInterrupted) {
-            sharedValue.increment(value);
+            sharedValue.modify(value);
             try {
                 Thread.sleep(0, 1);
             } catch (InterruptedException e) {
@@ -58,8 +58,8 @@ class MyTh implements Runnable {
 }
 
 public class Program {
-    static Thread th1, th2;
-    static JButton btn, stopBtn, th1Plus, th2Plus, th1Minus, th2Minus;
+    static Thread Thread1, Thread2;
+    static JButton startBtn, stopBtn, Thread1Plus, Thread2Plus, Thread1Minus, Thread2Minus;
     static JSlider slider;
     static JTextField priorities;
     static JPanel panel, linePanelTop, linePanelBottom;
@@ -76,7 +76,7 @@ public class Program {
     }
 
     private static void printPriorities(JTextField textField) {
-        textField.setText(" " + th1.getPriority() + " : " + th2.getPriority() + " ");
+        textField.setText(" " + Thread1.getPriority() + " : " + Thread2.getPriority() + " ");
     }
 
     private static void changePriority(Thread th, boolean isIncrement) {
@@ -96,7 +96,7 @@ public class Program {
         linePanelTop = new JPanel();
         linePanelBottom = new JPanel();
 
-        btn = new JButton("Run");
+        startBtn = new JButton("Start");
         stopBtn = new JButton("Stop");
         stopBtn.setEnabled(false);
         slider = new JSlider();
@@ -104,82 +104,82 @@ public class Program {
         slider.setMinimum(10);
         slider.setMaximum(90);
 
-        th1Plus = new JButton("First +");
-        th1Minus = new JButton("First -");
-        th2Plus = new JButton("Second +");
-        th2Minus = new JButton("Second -");
+        Thread1Plus = new JButton("First +");
+        Thread1Minus = new JButton("First -");
+        Thread2Plus = new JButton("Second +");
+        Thread2Minus = new JButton("Second -");
         priorities = new JTextField("       :       ");
         priorities.setEnabled(false);
         priorities.setHorizontalAlignment(SwingConstants.CENTER);
 
-        th1Plus.setEnabled(false);
-        th2Plus.setEnabled(false);
-        th1Minus.setEnabled(false);
-        th2Minus.setEnabled(false);
+        Thread1Plus.setEnabled(false);
+        Thread2Plus.setEnabled(false);
+        Thread1Minus.setEnabled(false);
+        Thread2Minus.setEnabled(false);
 
         SharedValue sliderData = new SharedValue(slider);
-        btn.addActionListener(e -> {
-            th1 = new Thread(new MyTh(sliderData, 1));
-            th2 = new Thread(new MyTh(sliderData, -1));
+        startBtn.addActionListener(e -> {
+            Thread1 = new Thread(new CustomThread(sliderData, 1));
+            Thread2 = new Thread(new CustomThread(sliderData, -1));
 
-            th1.setPriority(5);
-            th2.setPriority(5);
+            Thread1.setPriority(5);
+            Thread2.setPriority(5);
 
-            th1.start();
-            th2.start();
+            Thread1.start();
+            Thread2.start();
 
-            btn.setEnabled(false);
+            startBtn.setEnabled(false);
             stopBtn.setEnabled(true);
 
-            th1Plus.setEnabled(true);
-            th2Plus.setEnabled(true);
-            th1Minus.setEnabled(true);
-            th2Minus.setEnabled(true);
+            Thread1Plus.setEnabled(true);
+            Thread2Plus.setEnabled(true);
+            Thread1Minus.setEnabled(true);
+            Thread2Minus.setEnabled(true);
 
             printPriorities(priorities);
         });
 
 
         stopBtn.addActionListener(e -> {
-            th1.interrupt();
-            th2.interrupt();
+            Thread1.interrupt();
+            Thread2.interrupt();
 
             slider.setValue(50);
 
-            btn.setEnabled(true);
+            startBtn.setEnabled(true);
             stopBtn.setEnabled(false);
 
-            th1Plus.setEnabled(false);
-            th2Plus.setEnabled(false);
-            th1Minus.setEnabled(false);
-            th2Minus.setEnabled(false);
+            Thread1Plus.setEnabled(false);
+            Thread2Plus.setEnabled(false);
+            Thread1Minus.setEnabled(false);
+            Thread2Minus.setEnabled(false);
 
             priorities.setText("      :      ");
         });
 
-        th1Plus.addActionListener(e -> {
-            changePriority(th1, true);
+        Thread1Plus.addActionListener(e -> {
+            changePriority(Thread1, true);
         });
-        th1Minus.addActionListener(e -> {
-            changePriority(th1, false);
-        });
-
-        th2Plus.addActionListener(e -> {
-            changePriority(th2, true);
-        });
-        th2Minus.addActionListener(e -> {
-            changePriority(th2, false);
+        Thread1Minus.addActionListener(e -> {
+            changePriority(Thread1, false);
         });
 
-        linePanelTop.add(btn);
+        Thread2Plus.addActionListener(e -> {
+            changePriority(Thread2, true);
+        });
+        Thread2Minus.addActionListener(e -> {
+            changePriority(Thread2, false);
+        });
+
+        linePanelTop.add(startBtn);
         linePanelTop.add(stopBtn);
         linePanelTop.add(slider);
 
-        linePanelBottom.add(th1Plus);
-        linePanelBottom.add(th1Minus);
+        linePanelBottom.add(Thread1Plus);
+        linePanelBottom.add(Thread1Minus);
         linePanelBottom.add(priorities);
-        linePanelBottom.add(th2Plus);
-        linePanelBottom.add(th2Minus);
+        linePanelBottom.add(Thread2Plus);
+        linePanelBottom.add(Thread2Minus);
 
         panel.add(linePanelTop);
         panel.add(linePanelBottom);
