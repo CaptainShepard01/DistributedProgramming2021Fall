@@ -19,7 +19,7 @@ class SharedValue {
 
     public synchronized void modify(int value) {
         this.slider.setValue(this.slider.getValue() + value);
-        System.out.println(Thread.currentThread().getName() + " : " + this.slider.getValue());
+        //System.out.println(Thread.currentThread().getName() + " : " + this.slider.getValue());
     }
 
     @Override
@@ -47,7 +47,7 @@ class CustomThread implements Runnable {
         while (!isInterrupted) {
             sharedValue.modify(value);
             try {
-                Thread.sleep(0, 1);
+                Thread.sleep(0, 2);
             } catch (InterruptedException e) {
                 isInterrupted = true;
             }
@@ -76,7 +76,7 @@ public class Program {
     }
 
     private static void printPriorities(JTextField textField) {
-        textField.setText(" " + Thread1.getPriority() + " : " + Thread2.getPriority() + " ");
+        textField.setText(" " + Thread1.getPriority() + ":" + Thread2.getPriority() + " ");
     }
 
     private static void changePriority(Thread th, boolean isIncrement) {
@@ -100,6 +100,7 @@ public class Program {
         stopBtn = new JButton("Stop");
         stopBtn.setEnabled(false);
         slider = new JSlider();
+        slider.setEnabled(false);
         slider.setValue(50);
         slider.setMinimum(10);
         slider.setMaximum(90);
@@ -119,8 +120,8 @@ public class Program {
 
         SharedValue sliderData = new SharedValue(slider);
         startBtn.addActionListener(e -> {
-            Thread1 = new Thread(new CustomThread(sliderData, 1));
-            Thread2 = new Thread(new CustomThread(sliderData, -1));
+            Thread1 = new Thread(new CustomThread(sliderData, -1));
+            Thread2 = new Thread(new CustomThread(sliderData, 1));
 
             Thread1.setPriority(5);
             Thread2.setPriority(5);
