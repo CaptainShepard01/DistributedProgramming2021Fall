@@ -3,60 +3,6 @@ package com.company.lab1.b;
 import javax.swing.*;
 import java.awt.*;
 
-class SharedValue {
-    private JSlider slider;
-
-    public SharedValue(JSlider slider) {
-        this.slider = slider;
-    }
-
-    public synchronized JSlider getValue() {
-        return slider;
-    }
-
-    public synchronized void setValue(JSlider slider) {
-        this.slider = slider;
-    }
-
-    public synchronized void modify(int value) {
-        this.slider.setValue(value);
-    }
-
-    @Override
-    public String toString() {
-        return "SharedValue{" +
-                "value=" + slider.getValue() +
-                '}';
-    }
-}
-
-class CustomThread implements Runnable {
-    private final SharedValue sharedValue;
-    private final int value;
-
-    public CustomThread(SharedValue sharedValue, int value) {
-        this.sharedValue = sharedValue;
-        this.value = value;
-    }
-
-    @Override
-    public void run() {
-        System.out.println(Thread.currentThread().getName() + " start " + value);
-
-        boolean isInterrupted = false;
-        while (!isInterrupted) {
-            sharedValue.modify(value);
-            try {
-                Thread.sleep(0, 1);
-            } catch (InterruptedException e) {
-                isInterrupted = true;
-            }
-        }
-
-        System.out.println(Thread.currentThread().getName() + " end ");
-    }
-}
-
 public class Program {
     static int semaphore = 0;
 

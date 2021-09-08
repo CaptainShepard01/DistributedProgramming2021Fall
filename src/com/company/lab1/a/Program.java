@@ -3,60 +3,6 @@ package com.company.lab1.a;
 import javax.swing.*;
 import java.awt.*;
 
-class SharedValue {
-    private JSlider slider;
-
-    public SharedValue(JSlider slider) {
-        this.slider = slider;
-    }
-
-    public synchronized JSlider getValue() {
-        return slider;
-    }
-
-    public synchronized void setValue(JSlider slider) {
-        this.slider = slider;
-    }
-
-    public synchronized void modify(int value) {
-        this.slider.setValue((value < 0) ? (Math.max(10, this.slider.getValue() + value)) : (Math.min(90, this.slider.getValue() + value)));
-    }
-
-    @Override
-    public String toString() {
-        return "SharedValue{" +
-                "value=" + slider.getValue() +
-                '}';
-    }
-}
-
-class CustomThread implements Runnable {
-    private final SharedValue sharedValue;
-    private final int value;
-
-    public CustomThread(SharedValue sharedValue, int value) {
-        this.sharedValue = sharedValue;
-        this.value = value;
-    }
-
-    @Override
-    public void run() {
-        System.out.println(Thread.currentThread().getName() + " start " + value);
-
-        boolean isInterrupted = false;
-        while (!isInterrupted) {
-            sharedValue.modify(value);
-            try {
-                Thread.sleep(0, 2);
-            } catch (InterruptedException e) {
-                isInterrupted = true;
-            }
-        }
-
-        System.out.println(Thread.currentThread().getName() + " end ");
-    }
-}
-
 public class Program {
     static Thread Thread1, Thread2;
     static JButton startBtn, stopBtn, Thread1Plus, Thread2Plus, Thread1Minus, Thread2Minus;
