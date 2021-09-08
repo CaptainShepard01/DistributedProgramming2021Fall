@@ -89,7 +89,7 @@ public class Program {
             }
         }
 
-        info.setText("                                                                 ");
+        info.setText("");
         semaphore = 0;
     }
 
@@ -111,7 +111,9 @@ public class Program {
         slider.setEnabled(false);
         slider.setValue(50);
 
-        info = new JTextField("                                                                 ");
+        info = new JTextField(15);
+        info.setHorizontalAlignment(SwingConstants.CENTER);
+        info.setText("");
         info.setDisabledTextColor(Color.red);
         info.setEnabled(false);
 
