@@ -35,7 +35,7 @@ public class Program {
 
     private static void startThread(SharedValue data, int threadNum) {
         if(semaphore == 1){
-            info.setText("Critical section is occupied!");
+            info.setText("Зайнято потоком!");
             return;
         }
 
@@ -99,19 +99,19 @@ public class Program {
         linePanelTop = new JPanel();
         linePanelCentral = new JPanel();
 
-        start1Btn = new JButton("Start1");
-        stop1Btn = new JButton("Stop1");
+        start1Btn = new JButton("Пуск1");
+        stop1Btn = new JButton("Стоп1");
         stop1Btn.setEnabled(false);
 
-        start2Btn = new JButton("Start2");
-        stop2Btn = new JButton("Stop2");
+        start2Btn = new JButton("Пуск2");
+        stop2Btn = new JButton("Стоп2");
         stop2Btn.setEnabled(false);
 
         slider = new JSlider();
         slider.setEnabled(false);
         slider.setValue(50);
 
-        info = new JTextField(15);
+        info = new JTextField(12);
         info.setHorizontalAlignment(SwingConstants.CENTER);
         info.setText("");
         info.setDisabledTextColor(Color.red);

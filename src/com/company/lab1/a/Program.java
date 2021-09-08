@@ -42,17 +42,17 @@ public class Program {
         linePanelTop = new JPanel();
         linePanelBottom = new JPanel();
 
-        startBtn = new JButton("Start");
-        stopBtn = new JButton("Stop");
+        startBtn = new JButton("Пуск");
+        stopBtn = new JButton("Стоп");
         stopBtn.setEnabled(false);
         slider = new JSlider();
         slider.setEnabled(false);
         slider.setValue(50);
 
-        Thread1Plus = new JButton("First +");
-        Thread1Minus = new JButton("First -");
-        Thread2Plus = new JButton("Second +");
-        Thread2Minus = new JButton("Second -");
+        Thread1Plus = new JButton("Перший +");
+        Thread1Minus = new JButton("Перший -");
+        Thread2Plus = new JButton("Другий +");
+        Thread2Minus = new JButton("Другий -");
         priorities = new JTextField(5);
         priorities.setText(":");
         priorities.setEnabled(false);
