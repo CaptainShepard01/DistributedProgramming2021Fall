@@ -13,13 +13,12 @@ public class CustomThread implements Runnable {
     public void run() {
         System.out.println(Thread.currentThread().getName() + " start " + value);
 
-        boolean isInterrupted = false;
-        while (!isInterrupted) {
+        while (!Thread.currentThread().isInterrupted()) {
             sharedValue.modify(value);
             try {
-                Thread.sleep(0, 1);
+                Thread.sleep(0, 2);
             } catch (InterruptedException e) {
-                isInterrupted = true;
+                Thread.currentThread().interrupt();
             }
         }
 
