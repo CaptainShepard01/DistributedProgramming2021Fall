@@ -19,8 +19,7 @@ class SharedValue {
     }
 
     public synchronized void modify(int value) {
-        this.slider.setValue(this.slider.getValue() + value);
-        //System.out.println(Thread.currentThread().getName() + " : " + this.slider.getValue());
+        this.slider.setValue((value < 0) ? (Math.max(10, this.slider.getValue() + value)) : (Math.min(90, this.slider.getValue() + value)));
     }
 
     @Override
@@ -103,8 +102,6 @@ public class Program {
         slider = new JSlider();
         slider.setEnabled(false);
         slider.setValue(50);
-        slider.setMinimum(10);
-        slider.setMaximum(90);
 
         Thread1Plus = new JButton("First +");
         Thread1Minus = new JButton("First -");
@@ -157,7 +154,7 @@ public class Program {
             Thread1Minus.setEnabled(false);
             Thread2Minus.setEnabled(false);
 
-            priorities = new JTextField("         :         ");
+            priorities.setText("         :         ");
         });
 
         Thread1Plus.addActionListener(e -> {
