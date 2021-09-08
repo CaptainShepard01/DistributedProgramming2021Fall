@@ -1,6 +1,7 @@
 package com.company.lab1.a;
 
 import javax.swing.*;
+import java.awt.*;
 
 class SharedValue {
     private JSlider slider;
@@ -76,7 +77,7 @@ public class Program {
     }
 
     private static void printPriorities(JTextField textField) {
-        textField.setText(" " + Thread1.getPriority() + ":" + Thread2.getPriority() + " ");
+        textField.setText(" " + Thread1.getPriority() + " : " + Thread2.getPriority() + " ");
     }
 
     private static void changePriority(Thread th, boolean isIncrement) {
@@ -109,8 +110,9 @@ public class Program {
         Thread1Minus = new JButton("First -");
         Thread2Plus = new JButton("Second +");
         Thread2Minus = new JButton("Second -");
-        priorities = new JTextField("       :       ");
+        priorities = new JTextField("         :         ");
         priorities.setEnabled(false);
+        priorities.setDisabledTextColor(Color.black);
         priorities.setHorizontalAlignment(SwingConstants.CENTER);
 
         Thread1Plus.setEnabled(false);
@@ -155,7 +157,7 @@ public class Program {
             Thread1Minus.setEnabled(false);
             Thread2Minus.setEnabled(false);
 
-            priorities.setText("      :      ");
+            priorities = new JTextField("         :         ");
         });
 
         Thread1Plus.addActionListener(e -> {
