@@ -44,6 +44,7 @@ public class Program {
                 Thread1 = new Thread(new CustomThread(data, 10));
 
                 Thread1.setPriority(1);
+                Thread1.setDaemon(true);
 
                 Thread1.start();
 
@@ -57,6 +58,7 @@ public class Program {
                 Thread2 = new Thread(new CustomThread(data, 90));
 
                 Thread2.setPriority(10);
+                Thread2.setDaemon(true);
 
                 Thread2.start();
 

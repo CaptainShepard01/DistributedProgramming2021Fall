@@ -72,6 +72,9 @@ public class Program {
             Thread1.setPriority(5);
             Thread2.setPriority(5);
 
+            Thread1.setDaemon(true);
+            Thread2.setDaemon(true);
+
             Thread1.start();
             Thread2.start();
 

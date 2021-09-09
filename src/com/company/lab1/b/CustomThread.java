@@ -18,7 +18,7 @@ public class CustomThread implements Runnable {
             try {
                 Thread.sleep(0, 2);
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+                break;
             }
         }
 
