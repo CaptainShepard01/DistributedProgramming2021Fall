@@ -12,6 +12,7 @@ public class CustomThread implements Runnable {
     @Override
     public void run() {
         System.out.println(Thread.currentThread().getName() + " start " + value);
+        sharedValue.incrementSemaphore();
 
         while (!Thread.currentThread().isInterrupted()) {
             sharedValue.modify(value);
@@ -22,6 +23,7 @@ public class CustomThread implements Runnable {
             }
         }
 
+        sharedValue.decrementSemaphore();
         System.out.println(Thread.currentThread().getName() + " end ");
     }
 }

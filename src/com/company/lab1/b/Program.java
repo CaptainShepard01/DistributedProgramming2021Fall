@@ -2,10 +2,9 @@ package com.company.lab1.b;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Program {
-    static int semaphore = 0;
-
     static Thread Thread1, Thread2;
     static JButton start1Btn, stop1Btn, start2Btn, stop2Btn;
     static JSlider slider;
@@ -34,7 +33,7 @@ public class Program {
     }
 
     private static void startThread(SharedValue data, int threadNum) {
-        if(semaphore == 1){
+        if(data.getSemaphore().get() != 0){
             info.setText("Зайнято потоком!");
             return;
         }
@@ -69,8 +68,6 @@ public class Program {
                 break;
             }
         }
-
-        semaphore = 1;
     }
 
     private static void stopThread(int threadNum){
@@ -92,7 +89,6 @@ public class Program {
         }
 
         info.setText("");
-        semaphore = 0;
     }
 
     private static JPanel getjPanel() {
@@ -119,7 +115,7 @@ public class Program {
         info.setDisabledTextColor(Color.red);
         info.setEnabled(false);
 
-        SharedValue sliderData = new SharedValue(slider);
+        SharedValue sliderData = new SharedValue(slider, 0);
         start1Btn.addActionListener(e -> {
             startThread(sliderData, 1);
         });
