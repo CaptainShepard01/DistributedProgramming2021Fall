@@ -2,7 +2,7 @@ package com.company.lab2.a;
 
 public class Forest {
     private static int rows, columns;
-    public static boolean[][] cells;
+    private static boolean[][] cells;
 
     public Forest(int rows, int columns) {
         this.rows = rows;
@@ -20,10 +20,23 @@ public class Forest {
             System.out.println();
         }
     }
+
     public static void randomizePositionWinnieThePooh(){
         int randomRow = (int)(Math.random()*(rows-1));
         int randomColumn = (int)(Math.random()*(columns-1));
 
         cells[randomRow][randomColumn] = true;
+    }
+
+    public boolean[] getRow(int i){
+        return cells[i];
+    }
+
+    public static int getRows() {
+        return rows;
+    }
+
+    public static int getColumns() {
+        return columns;
     }
 }
