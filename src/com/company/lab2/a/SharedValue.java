@@ -31,13 +31,7 @@ public class SharedValue {
     }
 
     public void printWinniePosition(){
-        System.out.println("\nWinnie has been destroyed at position: (" +
-                WinnieThePoohRow +
-                ", " +
-                WinnieThePoohColumn +
-                ")\n" +
-                "By thread " +
-                Thread.currentThread().getName());
+        System.out.println("\nWinnie has been destroyed at position: (" + WinnieThePoohRow + ", " + WinnieThePoohColumn + ")");
         System.out.print("Time elapsed: ");
         System.out.printf("%,d", Duration.between(start, Instant.now()).toNanos());
     }

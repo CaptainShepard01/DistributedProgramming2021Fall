@@ -4,11 +4,11 @@ import java.time.Duration;
 import java.time.Instant;
 
 public class Program {
-    static int NUMBER_OF_THREADS = 20;
+    static int NUMBER_OF_THREADS = 8;
     public static Instant start;
 
     public static void main(String[] args) {
-        Forest forest = new Forest(50000, 50000);
+        Forest forest = new Forest(15000, 15000);
         SharedValue forestInfo = new SharedValue();
 
         forest.randomizePositionWinnieThePooh();
@@ -22,8 +22,6 @@ public class Program {
 
         for (int i = 0; i < NUMBER_OF_THREADS; ++i) {
             threads[i] = new Thread(new BeeHive(forestInfo, forest));
-            threads[i].setName("BeeHive " + i);
-            threads[i].setDaemon(true);
             threads[i].start();
         }
     }
