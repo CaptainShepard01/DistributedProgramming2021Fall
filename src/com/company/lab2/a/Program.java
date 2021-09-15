@@ -1,6 +1,5 @@
 package com.company.lab2.a;
 
-import java.time.Duration;
 import java.time.Instant;
 
 public class Program {
