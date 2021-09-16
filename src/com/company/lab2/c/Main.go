@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-const numberOfMonks = 50
+const numberOfMonks = 50000
 
 type Monk struct {
 	energy    int
@@ -28,6 +28,18 @@ func printEnergy() {
 	}
 }
 
+func fight(m1 Monk, m2 Monk) Monk {
+	if m1.monastery == m2.monastery {
+		return Monk{monastery: m1.monastery, energy: m1.energy + m2.energy}
+	}
+
+	if m1.energy >= m2.energy {
+		return Monk{monastery: m1.monastery, energy: m1.energy - m2.energy}
+	}
+
+	return Monk{monastery: m2.monastery, energy: m2.energy - m1.energy}
+}
+
 func determineWinner(monks []Monk, out chan<- Monk) {
 	if len(monks) == 0 {
 		return
@@ -35,9 +47,8 @@ func determineWinner(monks []Monk, out chan<- Monk) {
 
 	if len(monks) == 1 {
 		out <- monks[0]
+		return
 	}
-	length := len(monks)
-
 	c1 := make(chan Monk, 10)
 	c2 := make(chan Monk, 10)
 
@@ -59,19 +70,13 @@ func determineWinner(monks []Monk, out chan<- Monk) {
 		determineWinner(monks[length/2:], c2)
 	}()*/
 
-	go determineWinner(monks[:length/2], c1)
-	go determineWinner(monks[length/2:], c2)
+	go determineWinner(monks[:len(monks)/2], c1)
+	go determineWinner(monks[len(monks)/2:], c2)
 
-	leftWinner := <-c1
-	rightWinner := <-c2
-
+	winner := fight(<-c1, <-c2)
 	close(c1)
 	close(c2)
-
-	if leftWinner.energy > rightWinner.energy {
-		out <- leftWinner
-	}
-	out <- rightWinner
+	out <- winner
 }
 
 func main() {
