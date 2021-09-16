@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-const numberOfMonks = 16
+const numberOfMonks = 50
 
 type Monk struct {
 	energy    int
@@ -28,54 +28,65 @@ func printEnergy() {
 	}
 }
 
-func wrapper(monks []Monk, start, end int) Monk {
-	ch1 := make(chan Monk)
-	ch2 := make(chan Monk)
+func determineWinner(monks []Monk, out chan<- Monk) {
+	if len(monks) == 0 {
+		return
+	}
 
-	middle := (end + start) / 2
+	if len(monks) == 1 {
+		out <- monks[0]
+	}
+	length := len(monks)
 
-	go determineWinner(monks, start, middle, ch1, ch2)
-	go determineWinner(monks, middle+1, end, ch1, ch2)
+	c1 := make(chan Monk, 10)
+	c2 := make(chan Monk, 10)
 
-	leftWinner := <-ch1
-	rightWinner := <-ch2
+	/*var group sync.WaitGroup
+	group.Add(2)
+
+	go func() {
+		group.Wait()
+
+	}()
+
+	go func() {
+		defer group.Done()
+		determineWinner(monks[:length/2], c1)
+	}()
+
+	go func() {
+		defer group.Done()
+		determineWinner(monks[length/2:], c2)
+	}()*/
+
+	go determineWinner(monks[:length/2], c1)
+	go determineWinner(monks[length/2:], c2)
+
+	leftWinner := <-c1
+	rightWinner := <-c2
+
+	close(c1)
+	close(c2)
 
 	if leftWinner.energy > rightWinner.energy {
-		return leftWinner
+		out <- leftWinner
 	}
-	return rightWinner
-}
-
-func determineWinner(monks []Monk, start, end int, ch1, ch2 chan Monk) Monk {
-	if start == end {
-		ch1 <- monks[start]
-	}
-
-	//if end-start == 1 {
-	//	if monks[start].energy > monks[end].energy {
-	//		return monks[start]
-	//	}
-	//	return monks[end]
-	//}
-
-	middle := (end + start) / 2
-
-	ch1 <- determineWinner(monks, start, middle, ch1, ch2)
-	ch2 <- determineWinner(monks, middle+1, end, ch1, ch2)
-
-	leftWinner := <-ch1
-	rightWinner := <-ch2
-
-	if leftWinner.energy > rightWinner.energy {
-		return leftWinner
-	}
-	return rightWinner
+	out <- rightWinner
 }
 
 func main() {
 	generateRandomArray()
-	printEnergy()
+	//printEnergy()
 
-	winner := wrapper(initialArray, 0, numberOfMonks-1)
-	fmt.Printf("\nWinner is monk with energy %d from monastery #%d\n", winner.energy, winner.monastery)
+	outputChannel := make(chan Monk, 10)
+
+	start := time.Now()
+	determineWinner(initialArray, outputChannel)
+
+	winnerMonk := <-outputChannel
+	elapsedTime := time.Since(start)
+
+	close(outputChannel)
+	fmt.Printf("\nWinner is monk with energy %d from monastery #%d\n", winnerMonk.energy, winnerMonk.monastery)
+	fmt.Printf("Time elapsed: %s\n", elapsedTime)
 }
