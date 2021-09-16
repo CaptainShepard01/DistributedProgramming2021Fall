@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-const numberOfMonks = 50000
+const numberOfMonks = 5e6
 
 type Monk struct {
 	energy    int
@@ -18,7 +18,7 @@ var initialArray []Monk
 func generateRandomArray() {
 	rand.Seed(int64(time.Now().Second()))
 	for i := 0; i < numberOfMonks; i++ {
-		initialArray = append(initialArray, Monk{rand.Intn(1000) + 1, rand.Intn(2)})
+		initialArray = append(initialArray, Monk{rand.Intn(100000) + 1, rand.Intn(2)})
 	}
 }
 
@@ -28,16 +28,11 @@ func printEnergy() {
 	}
 }
 
-func fight(m1 Monk, m2 Monk) Monk {
-	if m1.monastery == m2.monastery {
-		return Monk{monastery: m1.monastery, energy: m1.energy + m2.energy}
+func fight(first, second Monk) Monk {
+	if first.energy > second.energy {
+		return second
 	}
-
-	if m1.energy >= m2.energy {
-		return Monk{monastery: m1.monastery, energy: m1.energy - m2.energy}
-	}
-
-	return Monk{monastery: m2.monastery, energy: m2.energy - m1.energy}
+	return first
 }
 
 func determineWinner(monks []Monk, out chan<- Monk) {
@@ -49,6 +44,8 @@ func determineWinner(monks []Monk, out chan<- Monk) {
 		out <- monks[0]
 		return
 	}
+	length := len(monks)
+
 	c1 := make(chan Monk, 10)
 	c2 := make(chan Monk, 10)
 
@@ -70,13 +67,15 @@ func determineWinner(monks []Monk, out chan<- Monk) {
 		determineWinner(monks[length/2:], c2)
 	}()*/
 
-	go determineWinner(monks[:len(monks)/2], c1)
-	go determineWinner(monks[len(monks)/2:], c2)
+	go determineWinner(monks[:length/2], c1)
+	go determineWinner(monks[length/2:], c2)
 
 	winner := fight(<-c1, <-c2)
 	close(c1)
 	close(c2)
+
 	out <- winner
+
 }
 
 func main() {
