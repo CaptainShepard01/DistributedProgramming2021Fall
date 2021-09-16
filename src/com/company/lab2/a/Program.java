@@ -7,10 +7,10 @@ public class Program {
     public static Instant start;
 
     public static void main(String[] args) {
-        Forest forest = new Forest(50000, 50000);
+        Forest forest = new Forest(500, 500);
         SharedValue forestInfo = new SharedValue();
 
-        forest.randomizePositionWinnieThePooh();
+        Forest.randomizePositionWinnieThePooh();
         startThreads(forestInfo, forest);
     }
 

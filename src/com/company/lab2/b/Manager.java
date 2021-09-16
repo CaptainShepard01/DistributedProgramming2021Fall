@@ -6,7 +6,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public class Manager {
-    private static int NUMBER_OF_GOODS = 10000;
+    private static int NUMBER_OF_GOODS = 1000;
     private static int totalPrice = 0;
     private static Instant start;
 

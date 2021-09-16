@@ -5,8 +5,8 @@ public class Forest {
     private static boolean[][] cells;
 
     public Forest(int rows, int columns) {
-        this.rows = rows;
-        this.columns = columns;
+        Forest.rows = rows;
+        Forest.columns = columns;
 
         cells = new boolean[rows][columns];
 
@@ -34,9 +34,5 @@ public class Forest {
 
     public static int getRows() {
         return rows;
-    }
-
-    public static int getColumns() {
-        return columns;
     }
 }

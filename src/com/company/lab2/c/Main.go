@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-const numberOfMonks = 5e6
+const numberOfMonks = 5e4
 
 type Monk struct {
 	energy    int
@@ -75,7 +75,6 @@ func determineWinner(monks []Monk, out chan<- Monk) {
 	close(c2)
 
 	out <- winner
-
 }
 
 func main() {

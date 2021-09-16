@@ -12,7 +12,7 @@ public class SharedValue {
 
     public synchronized void increment(){
         lastOccupiedCellRow++;
-    };
+    }
 
     public synchronized void setWinniePosition(int row, int column){
         WinnieThePoohRow = row;
@@ -38,7 +38,6 @@ public class SharedValue {
                 ")\n" +
                 "By thread " +
                 Thread.currentThread().getName());
-        System.out.print("Time elapsed: ");
-        System.out.printf("%,d", Duration.between(start, Instant.now()).toNanos());
+        System.out.printf("Time elapsed: %,d nanos", Duration.between(start, Instant.now()).toNanos());
     }
 }
