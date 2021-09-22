@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-const numberOfMonks = 5e4
+const numberOfMonks = 5e6
 
 type Monk struct {
 	energy    int
@@ -30,9 +30,9 @@ func printEnergy() {
 
 func fight(first, second Monk) Monk {
 	if first.energy > second.energy {
-		return second
+		return first
 	}
-	return first
+	return second
 }
 
 func determineWinner(monks []Monk, out chan<- Monk) {
@@ -54,7 +54,8 @@ func determineWinner(monks []Monk, out chan<- Monk) {
 
 	go func() {
 		group.Wait()
-
+		close(c1)
+		close(c2)
 	}()
 
 	go func() {
