@@ -2,7 +2,6 @@ package com.company.lab3.b;
 
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 
 import static java.lang.Thread.sleep;
 
@@ -12,7 +11,7 @@ public class Barbershop {
 
     public static volatile boolean occupied;
     public static boolean endOfTheDay;
-    public static volatile BlockingQueue<Client> clients = new ArrayBlockingQueue<Client>(CUSTOMERS_NUMBER);
+    public static volatile ArrayBlockingQueue<Client> clients = new ArrayBlockingQueue<Client>(CUSTOMERS_NUMBER);
 
     public Barbershop() {
         this.occupied = false;
@@ -40,7 +39,7 @@ public class Barbershop {
         return endOfTheDay;
     }
 
-    public static BlockingQueue<Client> getClients() {
+    public static ArrayBlockingQueue<Client> getClients() {
         return clients;
     }
 

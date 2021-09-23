@@ -3,16 +3,15 @@ package com.company.lab2.b;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 
 public class Manager {
     private static int NUMBER_OF_GOODS = 1000;
     private static int totalPrice = 0;
     private static Instant start;
 
-    private static BlockingQueue<MilitaryGood> wheelBarrow = new ArrayBlockingQueue<MilitaryGood>(NUMBER_OF_GOODS);
-    private static BlockingQueue<MilitaryGood> automobile = new ArrayBlockingQueue<MilitaryGood>(NUMBER_OF_GOODS);
-    private static BlockingQueue<MilitaryGood> warehouse = new ArrayBlockingQueue<MilitaryGood>(NUMBER_OF_GOODS);
+    private static ArrayBlockingQueue<MilitaryGood> wheelBarrow = new ArrayBlockingQueue<MilitaryGood>(NUMBER_OF_GOODS);
+    private static ArrayBlockingQueue<MilitaryGood> automobile = new ArrayBlockingQueue<MilitaryGood>(NUMBER_OF_GOODS);
+    private static ArrayBlockingQueue<MilitaryGood> warehouse = new ArrayBlockingQueue<MilitaryGood>(NUMBER_OF_GOODS);
 
     public static void manageGoods() throws InterruptedException {
         generateGoods();
