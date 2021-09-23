@@ -2,7 +2,7 @@ package com.company.lab2.a;
 
 import java.time.Instant;
 
-public class Program {
+public class lab2a {
     static int NUMBER_OF_THREADS = 20;
     public static Instant start;
 

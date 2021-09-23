@@ -3,7 +3,7 @@ package com.company.lab1.a;
 import javax.swing.*;
 import java.awt.*;
 
-public class Program {
+public class lab1a {
     static Thread Thread1, Thread2;
     static JButton startBtn, stopBtn, Thread1Plus, Thread2Plus, Thread1Minus, Thread2Minus;
     static JSlider slider;

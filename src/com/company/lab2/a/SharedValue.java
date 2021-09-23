@@ -3,7 +3,7 @@ package com.company.lab2.a;
 import java.time.Duration;
 import java.time.Instant;
 
-import static com.company.lab2.a.Program.start;
+import static com.company.lab2.a.lab2a.start;
 
 public class SharedValue {
     private static int lastOccupiedCellRow = -1;

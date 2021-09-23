@@ -1,8 +1,10 @@
 package com.company.lab3.b;
 
-import java.sql.Time;
-import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+
+import static java.lang.Thread.sleep;
 
 public class Barbershop {
     public static int CUSTOMERS_NUMBER = 10;
@@ -10,17 +12,20 @@ public class Barbershop {
 
     public static volatile boolean occupied;
     public static boolean endOfTheDay;
-    public static volatile ArrayList<Client> clients = new ArrayList<Client>();
+    public static volatile BlockingQueue<Client> clients = new ArrayBlockingQueue<Client>(CUSTOMERS_NUMBER);
 
     public Barbershop() {
         this.occupied = false;
         this.endOfTheDay = false;
     }
 
-    public static void clientHasCome(Client client) {
-        System.out.println("Client " + client.getName() + " has come.");
-        clients.add(client);
-        incr++;
+    public void clientHasCome(Client client) {
+        System.out.println(client.getName() + " has come.");
+        synchronized (this) {
+            clients.add(client);
+            incr++;
+            notifyAll();
+        }
     }
 
     public static boolean isOccupied() {
@@ -35,7 +40,7 @@ public class Barbershop {
         return endOfTheDay;
     }
 
-    public static ArrayList<Client> getClients() {
+    public static BlockingQueue<Client> getClients() {
         return clients;
     }
 
@@ -43,17 +48,35 @@ public class Barbershop {
         return CUSTOMERS_NUMBER;
     }
 
-    public static void trim(Client client) throws InterruptedException {
+    public void barberLogic() throws InterruptedException {
+        if (clients.isEmpty()) {
+            synchronized (this) {
+                System.out.println("Barber is sleeping.");
+                wait();
+            }
+        } else {
+            trim(getClients().take());
+        }
+    }
+
+    public void clientLogic() throws InterruptedException {
+        while(isOccupied()){
+            System.out.println(Thread.currentThread().getName() + " is sleeping.");
+            wait();
+        }
+    }
+
+    public void trim(Client client) throws InterruptedException {
         Random random = new Random();
-        occupied = true;
         System.out.println("Trim of " + client.getName() + " started.");
-        Thread.currentThread().sleep(random.nextInt(2000));
+        sleep(random.nextInt(2000));
         System.out.println("Trim of " + client.getName() + " finished.");
-        clients.remove(client);
         if (incr == CUSTOMERS_NUMBER && clients.isEmpty()) {
             endOfTheDay = true;
         }
-        occupied = false;
+        synchronized (this) {
+            notifyAll();
+        }
     }
 }
 

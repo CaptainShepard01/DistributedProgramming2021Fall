@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Program {
+public class lab1b {
     static Thread Thread1, Thread2;
     static JButton start1Btn, stop1Btn, start2Btn, stop2Btn;
     static JSlider slider;

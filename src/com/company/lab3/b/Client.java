@@ -7,7 +7,7 @@ public class Client implements Runnable {
 
     public Client(Barbershop barbershop) {
         this.barbershop = barbershop;
-        this.name = "Clent #" + incr++;
+        this.name = "Client #" + incr++;
     }
 
     public String getName() {
@@ -16,12 +16,9 @@ public class Client implements Runnable {
 
     @Override
     public void run() {
-        if(barbershop.isOccupied()){
-            System.out.println(name + " is sleeping.");
-        }
-        while (barbershop.isOccupied()) {
+        while (!barbershop.isEndOfTheDay()) {
             try {
-                Thread.currentThread().sleep(1);
+                barbershop.clientLogic();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -2,7 +2,7 @@ package com.company.lab3.b;
 
 import java.util.Random;
 
-public class Program {
+public class lab3b {
     public static Barbershop barbershop = new Barbershop();
     public static Thread barber;
 
