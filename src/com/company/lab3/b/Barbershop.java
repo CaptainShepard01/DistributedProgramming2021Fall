@@ -11,17 +11,17 @@ public class Barbershop {
 
     public static volatile boolean occupied;
     public static boolean endOfTheDay;
-    public static volatile ArrayBlockingQueue<Client> clients = new ArrayBlockingQueue<Client>(CUSTOMERS_NUMBER);
+    public static ArrayBlockingQueue<Client> clients = new ArrayBlockingQueue<>(CUSTOMERS_NUMBER);
 
     public Barbershop() {
         this.occupied = false;
         this.endOfTheDay = false;
     }
 
-    public void clientHasCome(Client client) {
+    public void clientHasCome(Client client) throws InterruptedException {
         System.out.println(client.getName() + " has come.");
         synchronized (this) {
-            clients.add(client);
+            clients.put(client);
             incr++;
             notifyAll();
         }
