@@ -1,38 +1,57 @@
 package com.company.lab4.a;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
-
-import static com.company.lab4.a.FileInteractor.fileName;
 
 public class lab4a {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        FileInteractor interactor = new FileInteractor();
-        interactor.clearFile();
+    public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
+        FileInteractor.clearFile();
 
-        FileInteractor.writeToFile(new Writer("Vasya", "uipuipuiipuip"));
-        FileInteractor.writeToFile(new Writer("Petya", "sgdsagdsadg"));
-        FileInteractor.writeToFile(new Writer("Vova", "hljjhkl;hj;k"));
+        Thread managerThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                FileInteractor.writeToFile(new Writer("Vasya", "380504440000"));
+                FileInteractor.writeToFile(new Writer("Petya", "380504441111"));
+                FileInteractor.writeToFile(new Writer("Vova", "380505550000"));
+                FileInteractor.writeToFile(new Writer("Grysha", "380505551111"));
+                FileInteractor.writeToFile(new Writer("Semen", "380501234567"));
+                FileInteractor.writeToFile(new Writer("Fedor", "380509871890"));
+                FileInteractor.writeToFile(new Writer("Ivan", "380090123455"));
+                FileInteractor.writeToFile(new Writer("Alexandr", "380965858444"));
+                FileInteractor.removeByKey("Fedor", FileInteractor.Field.NAME);
+                FileInteractor.removeByKey("Semen", FileInteractor.Field.NAME);
+                FileInteractor.removeByKey("Vova", FileInteractor.Field.NAME);
+                FileInteractor.removeByKey("380504441111", FileInteractor.Field.PHONE);
+                FileInteractor.writeToFile(new Writer("Anton", "45684968896846"));
+                FileInteractor.removeByKey("380965858444", FileInteractor.Field.PHONE);
+                FileInteractor.removeByKey("380090123455", FileInteractor.Field.PHONE);
+                FileInteractor.writeToFile(new Writer("Stepan", "5745754685468"));
 
-        Writer writer1 = FileInteractor.findInFile("Vova", FileInteractor.Field.NAME);
-        System.out.println(writer1);
-        FileInteractor.writeToFile(new Writer("Grysha", "cvbmvcbmvcmbvcbm"));
-        FileInteractor.writeToFile(new Writer("Semen", "+zXCZXCzCXzcxZXC"));
+            }
+        });
+        managerThread.start();
+        Thread.sleep(2);
 
-        Writer writer2 = FileInteractor.findInFile("sgdsagdsadg", FileInteractor.Field.PHONE);
-        System.out.println(writer2);
+        Thread nameFinderThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("By name Vova: " + FileInteractor.findInFile("Vova", FileInteractor.Field.NAME));
+                System.out.println("By name Grysha: " + FileInteractor.findInFile("Grysha", FileInteractor.Field.NAME));
+                System.out.println("By name Fedor: " + FileInteractor.findInFile("Fedor", FileInteractor.Field.NAME));
+                System.out.println("By name Alexandr: " + FileInteractor.findInFile("Alexandr", FileInteractor.Field.NAME));
+            }
+        });
 
-        System.out.println();
-        FileInteractor.readFile();
-        System.out.println();
-        FileInteractor.removeFromFile(new Writer("Grysha", "cvbmvcbmvcmbvcbm"));
-        FileInteractor.readFile();
+        Thread phoneFinderThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("By phone 380504441111: " + FileInteractor.findInFile("380504441111", FileInteractor.Field.PHONE));
+                System.out.println("By phone 380504440000: " + FileInteractor.findInFile("380504440000", FileInteractor.Field.PHONE));
+                System.out.println("By phone 380509871890: " + FileInteractor.findInFile("380509871890", FileInteractor.Field.PHONE));
+                System.out.println("By phone 380090123455: " + FileInteractor.findInFile("380090123455", FileInteractor.Field.PHONE));
+            }
+        });
 
-        /*String fileName = "E:\\Projects\\DistributedProgramming2021Fall\\WritersDatabase.bin";
-        RandomAccessFile file = new RandomAccessFile(fileName, "r");
-        Writer writer = new Writer("Toha", "Eislavabogu");
-        writer.write(file);
-        writer.read(file);
-        System.out.println(writer);*/
+        nameFinderThread.start();
+        phoneFinderThread.start();
     }
 }

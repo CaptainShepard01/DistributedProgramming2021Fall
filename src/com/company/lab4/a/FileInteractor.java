@@ -7,50 +7,64 @@ public class FileInteractor {
     public static String fileName = "WritersDatabase.bin";
     private static ObjectOutputStream output;
 
+    static {
+        try {
+            output = new ObjectOutputStream(new FileOutputStream(fileName, true));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static ReadWriteLock lock = new ReadWriteLock();
+
     public enum Field {
         PHONE,
         NAME
     }
 
-
     public FileInteractor() throws IOException {
         output = new ObjectOutputStream(new FileOutputStream(fileName, true));
+        lock = new ReadWriteLock();
     }
 
     public static void writeToFile(Writer writer) {
         try {
+            lock.lockRead();
             output.writeObject(writer);
-        } catch (IOException e) {
+            lock.unlockRead();
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
 
     public static Writer findInFile(String key, Field field) {
         try {
+            lock.lockWrite();
             FileInputStream istream = new FileInputStream(fileName);
             ObjectInputStream input = new ObjectInputStream(istream);
 
             boolean isFound = false;
-            Writer writer = new Writer("", "");
+            Writer answer = new Writer("", "");
             while (!isFound && istream.available() > 0) {
-                writer = (Writer) input.readObject();
+                Writer writer = (Writer) input.readObject();
                 switch (field) {
-                    case NAME: {
+                    case NAME -> {
                         if (writer.getName().equals(key)) {
+                            answer = writer;
                             isFound = true;
-                            break;
                         }
                     }
-                    case PHONE: {
+                    case PHONE -> {
                         if (writer.getPhone().equals(key)) {
+                            answer = writer;
                             isFound = true;
-                            break;
                         }
                     }
                 }
             }
-            return writer;
-        } catch (IOException | ClassNotFoundException e) {
+            lock.unlockWrite();
+            return answer;
+        } catch (IOException | ClassNotFoundException | InterruptedException e) {
             e.printStackTrace();
         }
         return null;
@@ -72,29 +86,54 @@ public class FileInteractor {
         return array;
     }
 
-    public static void removeFromFile(Writer writer) throws IOException, ClassNotFoundException {
-        FileInputStream istream = new FileInputStream(fileName);
-        ObjectInputStream input = new ObjectInputStream(istream);
 
-        ArrayList<Writer> array = getAllItems(istream, input);
+    public static void removeByKey(String key, Field field) {
+        try{
+            lock.lockRead();
+            FileInputStream istream = new FileInputStream(fileName);
+            ObjectInputStream input = new ObjectInputStream(istream);
 
-        int index = -1;
-        for (int i = 0; i < array.size(); ++i) {
-            if (array.get(i).isEqual(writer)) {
-                index = i;
+            ArrayList<Writer> array = getAllItems(istream, input);
+
+            int index = -1;
+            switch (field){
+                case NAME -> {
+                    for (int i = 0; i < array.size(); ++i) {
+                        if (array.get(i).getName().equals(key)) {
+                            index = i;
+                            break;
+                        }
+                    }
+                }
+                case PHONE -> {
+                    for (int i = 0; i < array.size(); ++i) {
+                        if (array.get(i).getPhone().equals(key)) {
+                            index = i;
+                            break;
+                        }
+                    }
+                }
             }
-        }
 
-        array.remove(index);
+            if(index == -1){
+                lock.unlockWrite();
+                return;
+            }
+            array.remove(index);
 
-        clearFile();
+            clearFile();
 
-        for (Writer item : array) {
-            output.writeObject(item);
+            for (Writer item : array) {
+                output.writeObject(item);
+            }
+            lock.unlockRead();
+        } catch (IOException | InterruptedException | ClassNotFoundException e){
+            e.printStackTrace();
         }
     }
 
-    public static void readFile() throws IOException, ClassNotFoundException {
+    public static void readFile() throws IOException, ClassNotFoundException, InterruptedException {
+        lock.lockWrite();
         FileInputStream istream = new FileInputStream(fileName);
         ObjectInputStream input = new ObjectInputStream(istream);
 
@@ -102,5 +141,6 @@ public class FileInteractor {
             Writer buffer = (Writer) input.readObject();
             System.out.println(buffer);
         }
+        lock.unlockWrite();
     }
 }

@@ -68,11 +68,11 @@ func initiate(out chan string) {
 
 			switch {
 			case good1 == TOBACCO && good2 == PAPER || good2 == TOBACCO && good1 == PAPER:
-				tobacco <- 3
+				matches <- 3
 			case good1 == TOBACCO && good2 == MATCHES || good2 == TOBACCO && good1 == MATCHES:
 				paper <- 2
 			case good1 == PAPER && good2 == MATCHES || good2 == PAPER && good1 == MATCHES:
-				matches <- 1
+				tobacco <- 1
 			}
 
 			time.Sleep(2 * time.Second)

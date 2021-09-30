@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ReadWriteLock{
-
     private Map<Thread, Integer> readingThreads =
             new HashMap<Thread, Integer>();
 
@@ -107,5 +106,4 @@ public class ReadWriteLock{
     private boolean hasWriteRequests(){
         return this.writeRequests > 0;
     }
-
 }
