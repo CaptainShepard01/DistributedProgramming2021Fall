@@ -29,9 +29,9 @@ public class FileInteractor {
 
     public static void writeToFile(Writer writer) {
         try {
-            lock.lockRead();
+            lock.lockWrite();
             output.writeObject(writer);
-            lock.unlockRead();
+            lock.unlockWrite();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -39,7 +39,7 @@ public class FileInteractor {
 
     public static Writer findInFile(String key, Field field) {
         try {
-            lock.lockWrite();
+            lock.lockRead();
             FileInputStream istream = new FileInputStream(fileName);
             ObjectInputStream input = new ObjectInputStream(istream);
 
@@ -62,7 +62,7 @@ public class FileInteractor {
                     }
                 }
             }
-            lock.unlockWrite();
+            lock.unlockRead();
             return answer;
         } catch (IOException | ClassNotFoundException | InterruptedException e) {
             e.printStackTrace();
@@ -89,7 +89,7 @@ public class FileInteractor {
 
     public static void removeByKey(String key, Field field) {
         try{
-            lock.lockRead();
+            lock.lockWrite();
             FileInputStream istream = new FileInputStream(fileName);
             ObjectInputStream input = new ObjectInputStream(istream);
 
@@ -126,14 +126,14 @@ public class FileInteractor {
             for (Writer item : array) {
                 output.writeObject(item);
             }
-            lock.unlockRead();
+            lock.unlockWrite();
         } catch (IOException | InterruptedException | ClassNotFoundException e){
             e.printStackTrace();
         }
     }
 
     public static void readFile() throws IOException, ClassNotFoundException, InterruptedException {
-        lock.lockWrite();
+        lock.lockRead();
         FileInputStream istream = new FileInputStream(fileName);
         ObjectInputStream input = new ObjectInputStream(istream);
 
@@ -141,6 +141,6 @@ public class FileInteractor {
             Writer buffer = (Writer) input.readObject();
             System.out.println(buffer);
         }
-        lock.unlockWrite();
+        lock.unlockRead();
     }
 }
