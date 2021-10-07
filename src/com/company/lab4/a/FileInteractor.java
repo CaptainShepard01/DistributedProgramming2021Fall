@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class FileInteractor {
-    public String fileName;
+    private String fileName;
     private ObjectOutputStream output;
     private ReadWriteLock lock;
 
