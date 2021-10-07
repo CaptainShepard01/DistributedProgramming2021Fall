@@ -8,24 +8,24 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class Garden {
-    private static Boolean[][] conditions;
-    private static int length, width;
-    public static String fileName = "GardenConditionsDatabase.bin";
-    private static BufferedWriter output;
-    private static int counter = 0;
+    private Boolean[][] conditions;
+    private int length, width;
+    public String fileName = "GardenConditionsDatabase.bin";
+    private BufferedWriter output;
+    private int counter = 0;
 
-    private static final ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
-    private static final Lock r = rwl.readLock();
-    private static final Lock w = rwl.writeLock();
+    private final ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
+    private final Lock r = rwl.readLock();
+    private final Lock w = rwl.writeLock();
 
     public Garden(int length, int width) {
-        Garden.length = length;
-        Garden.width = width;
+        this.length = length;
+        this.width = width;
         conditions = new Boolean[length][width];
         motherNature();
     }
 
-    public static void motherNature() {
+    public void motherNature() {
         Random random = new Random();
         for (int i = 0; i < length; ++i) {
             for (int j = 0; j < width; ++j) {
@@ -39,7 +39,7 @@ public class Garden {
         }
     }
 
-    public static void printGarden() {
+    public void printGarden() {
         r.lock();
         try {
             for (Boolean[] row : conditions) {
@@ -55,7 +55,7 @@ public class Garden {
         System.out.println();
     }
 
-    public static void pourPlants() {
+    public void pourPlants() {
         for (int i = 0; i < length; ++i) {
             for (int j = 0; j < width; ++j) {
                 synchronized (conditions[i][j]) {
@@ -72,7 +72,7 @@ public class Garden {
         }
     }
 
-    public static void writeToFile() {
+    public void writeToFile() {
         try {
             output = new BufferedWriter(new FileWriter(fileName, true));
             output.write("Garden condition #" + counter++ + ":\n");
@@ -95,7 +95,7 @@ public class Garden {
         }
     }
 
-    public static void clearFile() {
+    public void clearFile() {
         try {
             output = new BufferedWriter(new FileWriter(fileName));
             output.close();

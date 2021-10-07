@@ -3,11 +3,11 @@ package com.company.lab4.b;
 public class lab4b {
     public static void main(String[] args) throws InterruptedException {
         Garden garden = new Garden(5, 5);
-        Garden.clearFile();
+        garden.clearFile();
 
         Thread gardener = new Thread(() -> {
             for(int i = 0; i < 5; ++i){
-                Garden.pourPlants();
+                garden.pourPlants();
                 System.out.println("Garden has been poured.\n");
                 try {
                     Thread.sleep(2000);
@@ -19,7 +19,7 @@ public class lab4b {
 
         Thread nature = new Thread(() -> {
             for(int i = 0; i < 10; ++i){
-                Garden.motherNature();
+                garden.motherNature();
                 System.out.println("Garden has been changed by Mother Nature.\n");
                 try {
                     Thread.sleep(1000);
@@ -31,7 +31,7 @@ public class lab4b {
 
         Thread monitor1 = new Thread(() -> {
             for(int i = 0; i < 5; ++i){
-                Garden.writeToFile();
+                garden.writeToFile();
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
@@ -42,7 +42,7 @@ public class lab4b {
 
         Thread monitor2 = new Thread(() -> {
             for(int i = 0; i < 5; ++i){
-                Garden.printGarden();
+                garden.printGarden();
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {

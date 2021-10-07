@@ -4,30 +4,26 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class FileInteractor {
-    public static String fileName = "WritersDatabase.bin";
-    private static ObjectOutputStream output;
+    public String fileName;
+    private ObjectOutputStream output;
+    private ReadWriteLock lock;
 
-    static {
+    public FileInteractor(String fileName) {
+        this.fileName = fileName;
+        this.lock = new ReadWriteLock();
         try {
-            output = new ObjectOutputStream(new FileOutputStream(fileName, true));
-        } catch (IOException e) {
-            e.printStackTrace();
+            this.output = new ObjectOutputStream(new FileOutputStream(fileName, true));
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
-
-    private static ReadWriteLock lock = new ReadWriteLock();
 
     public enum Field {
         PHONE,
         NAME
     }
 
-    public FileInteractor() throws IOException {
-        output = new ObjectOutputStream(new FileOutputStream(fileName, true));
-        lock = new ReadWriteLock();
-    }
-
-    public static void writeToFile(Writer writer) {
+    public void writeToFile(Writer writer) {
         try {
             lock.lockWrite();
             output.writeObject(writer);
@@ -37,7 +33,7 @@ public class FileInteractor {
         }
     }
 
-    public static Writer findInFile(String key, Field field) {
+    public Writer findInFile(String key, Field field) {
         try {
             lock.lockRead();
             FileInputStream istream = new FileInputStream(fileName);
@@ -70,14 +66,14 @@ public class FileInteractor {
         return null;
     }
 
-    public static void clearFile() throws IOException {
+    public void clearFile() throws IOException {
         PrintWriter writer = new PrintWriter(fileName);
         writer.print("");
         writer.close();
         output = new ObjectOutputStream(new FileOutputStream(fileName, true));
     }
 
-    private static ArrayList<Writer> getAllItems(FileInputStream istream, ObjectInputStream input) throws IOException, ClassNotFoundException {
+    private ArrayList<Writer> getAllItems(FileInputStream istream, ObjectInputStream input) throws IOException, ClassNotFoundException {
         ArrayList<Writer> array = new ArrayList<>();
         while (istream.available() > 0) {
             Writer buffer = (Writer) input.readObject();
@@ -87,7 +83,7 @@ public class FileInteractor {
     }
 
 
-    public static void removeByKey(String key, Field field) {
+    public void removeByKey(String key, Field field) {
         try{
             lock.lockWrite();
             FileInputStream istream = new FileInputStream(fileName);
@@ -132,7 +128,7 @@ public class FileInteractor {
         }
     }
 
-    public static void readFile() throws IOException, ClassNotFoundException, InterruptedException {
+    public void readFile() throws IOException, ClassNotFoundException, InterruptedException {
         lock.lockRead();
         FileInputStream istream = new FileInputStream(fileName);
         ObjectInputStream input = new ObjectInputStream(istream);
