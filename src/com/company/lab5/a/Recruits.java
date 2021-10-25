@@ -11,11 +11,19 @@ public class Recruits {
     public Recruits(int numberOfRecruits) {
         this.numberOfRecruits = numberOfRecruits;
         this.recruits = new Boolean[numberOfRecruits];
+        this.previousState = new Boolean[numberOfRecruits];
         initialStateOfRecruits();
+        setPreviousState();
     }
 
-    public void setPreviousState(Boolean[] previousState) {
-        this.previousState = recruits;
+    public void setPreviousState() {
+        for(int i = 0;i<numberOfRecruits;++i){
+            previousState[i] = recruits[i];
+        }
+    }
+
+    public Boolean[] getRecruits() {
+        return recruits;
     }
 
     public void initialStateOfRecruits() {
@@ -26,11 +34,11 @@ public class Recruits {
     }
 
     public void printRecruits() {
-        System.out.print("Recruits current state:\n[ ");
+        System.out.print("[ ");
         for (int i = 0; i < numberOfRecruits; ++i) {
             System.out.print(recruits[i] ? ">" : "<");
         }
-        System.out.print(" ]");
+        System.out.println(" ]");
     }
 
     //End index excluding
@@ -44,15 +52,19 @@ public class Recruits {
         if (end != recruits.length) {
             if (recruits[end - 1] && !recruits[end]) {
                 recruits[end - 1] = false;
-                recruits[end] = true;
+                synchronized (recruits[end]){
+                    recruits[end] = true;
+                }
             }
         }
     }
 
     public synchronized boolean isStationary() {
-        if (recruits == previousState) {
-            return true;
+        for(int i = 0;i<numberOfRecruits;++i){
+            if(recruits[i] != previousState[i]){
+                return false;
+            }
         }
-        return false;
+        return true;
     }
 }
