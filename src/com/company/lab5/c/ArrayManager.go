@@ -5,7 +5,7 @@ import (
 	"math/rand"
 )
 
-var LIMIT = 15
+var LIMIT = 5
 
 type ArrayManager struct {
 	array      []int
@@ -57,5 +57,5 @@ func (thread *ArrayManager) arrayModification() {
 
 func (thread *ArrayManager) print() {
 	sum := thread.getCurrentSum()
-	fmt.Printf("Sum: %v\nElements: %d\n", thread.array, sum)
+	fmt.Printf("Elements: %v\nSum: %d\n", thread.array, sum)
 }
