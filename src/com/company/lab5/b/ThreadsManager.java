@@ -4,13 +4,13 @@ import java.util.Random;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
-public class StringManager extends Thread {
-    private StringWrapper string;
+public class ThreadsManager extends Thread {
+    private StringWithCounting string;
     private final StringModifier modifier;
     private final CyclicBarrier barrier;
     private final CyclicBarrier gate;
 
-    public StringManager(CyclicBarrier gate, CyclicBarrier barrier) {
+    public ThreadsManager(CyclicBarrier gate, CyclicBarrier barrier) {
         this.modifier = new StringModifier();
         this.barrier = barrier;
         this.gate = gate;
@@ -36,19 +36,19 @@ public class StringManager extends Thread {
             }
         }
 
-        string = new StringWrapper(String.valueOf(stringChars));
+        string = new StringWithCounting(String.valueOf(stringChars));
     }
 
     @Override
     public void run() {
-        System.out.println(Thread.currentThread().getName() + " is waiting for others");
+        System.out.println(Thread.currentThread().getName() + " is waiting for other threads to begin simultaneously.");
         try {
             gate.await();
         } catch (InterruptedException | BrokenBarrierException e) {
             e.printStackTrace();
         }
 
-        System.out.println(Thread.currentThread().getName() + " started its work");
+        System.out.println(Thread.currentThread().getName() + " has started running.");
 
         while (!isInterrupted()) {
             modifier.modifyString(string);

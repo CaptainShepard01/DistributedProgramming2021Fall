@@ -5,7 +5,7 @@ import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
 public class StringModifier {
-    public synchronized void modifyString(StringWrapper string) {
+    public synchronized void modifyString(StringWithCounting string) {
         Random random = new Random();
 
         for (int i = 0; i < string.getString().length(); ++i) {
@@ -37,7 +37,7 @@ public class StringModifier {
         }
     }
 
-    public synchronized void tryToJoinTheBarrier(StringWrapper string, CyclicBarrier barrier) {
+    public synchronized void tryToJoinTheBarrier(StringWithCounting string, CyclicBarrier barrier) {
         try {
             if (string.areABEqual() && barrier.getParties() != barrier.getNumberWaiting()) {
                 System.out.println("\n" + Thread.currentThread().getName() + " has reached barrier.\nnumberA = " +

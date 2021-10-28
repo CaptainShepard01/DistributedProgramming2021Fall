@@ -1,7 +1,6 @@
 package com.company.lab5.b;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.stream.IntStream;
@@ -25,7 +24,7 @@ public class lab5b {
 
     public static void initializeThreads(CyclicBarrier barrier) {
         IntStream.range(0, 4).forEach(i -> {
-            threads.add(new StringManager(gate, barrier));
+            threads.add(new ThreadsManager(gate, barrier));
             threads.get(i).start();
         });
 

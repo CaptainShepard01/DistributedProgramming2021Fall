@@ -1,11 +1,11 @@
 package com.company.lab5.b;
 
-public class StringWrapper {
+public class StringWithCounting {
     private String string;
     private int numberA = 0;
     private int numberB = 0;
 
-    StringWrapper(String string) {
+    StringWithCounting(String string) {
         this.string = string;
 
         setNumbers();
