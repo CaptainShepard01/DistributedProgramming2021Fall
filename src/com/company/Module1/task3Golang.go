@@ -7,7 +7,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
-	"sync"
+	"time"
 )
 
 func tryToPark(array []chan int) {
@@ -39,15 +39,12 @@ func initialize() {
 		array[i] = make(chan int, 1)
 	}
 
-	wg := sync.WaitGroup{}
-
 	for i := 0; i < NUMBEROFCARS; i++ {
-		wg.Add(1)
 		go func() {
-			defer wg.Done()
 			tryToPark(array)
 		}()
 	}
+	time.Sleep(5 * time.Second)
 }
 
 func main() {
