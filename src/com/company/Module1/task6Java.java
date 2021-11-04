@@ -7,15 +7,17 @@ package com.company.Module1;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.atomic.AtomicInteger;
 
 class Cass extends Thread {
-    private int numberOfCustomers;
-    private ArrayBlockingQueue<Thread> customers;
+    private AtomicInteger numberOfCustomers;
+    private final ArrayBlockingQueue<Thread> customers;
     private final int cassNumber;
+    volatile int csa;
     public static int numberOfClients = 0;
 
     public Cass(int cassNumber) {
-        this.numberOfCustomers = 0;
+        this.numberOfCustomers = new AtomicInteger(0);
         this.customers = new ArrayBlockingQueue<>(50);
         this.cassNumber = cassNumber;
     }
@@ -23,7 +25,7 @@ class Cass extends Thread {
     public void addCustomer(Customer newCustomer) {
         try {
             customers.put(newCustomer);
-            numberOfCustomers++;
+            numberOfCustomers.getAndIncrement();
             System.out.println("Customer " + newCustomer.getId() + " is in queue of Cass " + cassNumber);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -31,9 +33,9 @@ class Cass extends Thread {
     }
 
     public void serveCustomer() throws InterruptedException {
-        if (numberOfCustomers > 0) {
+        if (numberOfCustomers.get() > 0) {
             Thread servedCustomer = customers.take();
-            numberOfCustomers--;
+            numberOfCustomers.getAndDecrement();
             numberOfClients--;
             servedCustomer.interrupt();
             sleep(1000);
@@ -44,13 +46,13 @@ class Cass extends Thread {
     public void removeCustomer(Customer customer, Cass newCass) {
         if (customers.remove(customer)) {
             System.out.println("Customer " + customer.getId() + " has left queue of Cass " + cassNumber);
-            numberOfCustomers--;
+            numberOfCustomers.getAndDecrement();
 
             newCass.addCustomer(customer);
         }
     }
 
-    public int getNumberOfCustomers() {
+    public AtomicInteger getNumberOfCustomers() {
         return numberOfCustomers;
     }
 
@@ -95,7 +97,7 @@ class Customer extends Thread {
             try {
                 sleep(5000);
                 for (Cass cass : casses) {
-                    if (cass.getNumberOfCustomers() == 0) {
+                    if (cass.getNumberOfCustomers().get() == 0) {
                         changeCass(cass);
                         break;
                     }
