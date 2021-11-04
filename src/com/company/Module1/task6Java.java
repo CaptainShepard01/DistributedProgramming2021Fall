@@ -36,6 +36,7 @@ class Cass extends Thread {
             numberOfCustomers--;
             numberOfClients--;
             servedCustomer.interrupt();
+            sleep(1000);
             System.out.println("Customer " + servedCustomer.getId() + " was served at Cass " + cassNumber);
         }
     }
@@ -57,13 +58,12 @@ class Cass extends Thread {
     public void run() {
         while (!isInterrupted()) {
             try {
-                sleep(100);
                 serveCustomer();
             } catch (InterruptedException e) {
-                System.out.println("Cass " + cassNumber + " has ended its work.");
                 interrupt();
             }
         }
+        System.out.println("Cass " + cassNumber + " has ended its work.");
     }
 }
 
@@ -93,7 +93,7 @@ class Customer extends Thread {
         cass.addCustomer(this);
         while (!isInterrupted()) {
             try {
-                sleep(200);
+                sleep(5000);
                 for (Cass cass : casses) {
                     if (cass.getNumberOfCustomers() == 0) {
                         changeCass(cass);
@@ -108,8 +108,8 @@ class Customer extends Thread {
 }
 
 public class task6Java {
-    static final int NUMBEROFCASSES = 2;
-    static final int NUMBEROFCUSTOMERS = 5;
+    static final int NUMBEROFCASSES = 5;
+    static final int NUMBEROFCUSTOMERS = 50;
 
     public static void main(String[] args) {
         Random random = new Random();
