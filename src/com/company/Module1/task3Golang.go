@@ -12,19 +12,20 @@ import (
 
 func tryToPark(array []chan int) {
 	size := len(array)
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 5; i++ {
 		index := rand.Intn(size)
 
 		select {
 		case _, ok := <-array[index]:
 			if ok {
+				array[index] <- 0
 				fmt.Printf("Parking lot at index %d is occupied\nTrying another one...\n", index)
 			} else {
 				fmt.Println("Channel closed!")
 			}
 		default:
-			fmt.Printf("Parking lot at index %d is free\nParking...\n", index)
 			array[index] <- 0
+			fmt.Printf("Parking lot at index %d is free\nParking...\n", index)
 			break
 		}
 	}
