@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StaffDepartment>
+    <DepartmentUnit id="0" name="Unit-0" numberOfEmloyees="2">
+        <Employee id="0" isDepartmentHead="true" lengthOfEmployment="20" name="Employee-0"/>
+        <Employee id="1" isDepartmentHead="false" lengthOfEmployment="34" name="Employee-1"/>
+    </DepartmentUnit>
+</StaffDepartment>

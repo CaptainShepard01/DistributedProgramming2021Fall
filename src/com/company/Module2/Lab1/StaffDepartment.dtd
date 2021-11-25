@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!ELEMENT StaffDepartment (DepartmentUnit)*>
+        <!ELEMENT DepartmentUnit (Employee)+>
+        <!ATTLIST DepartmentUnit id CDATA #REQUIRED>
+        <!ATTLIST DepartmentUnit name CDATA #REQUIRED>
+        <!ATTLIST DepartmentUnit numberOfEmloyees CDATA #REQUIRED>
+        <!ELEMENT Employee ANY>
+        <!ATTLIST Employee id CDATA #REQUIRED>
+        <!ATTLIST Employee name CDATA #REQUIRED>
+        <!ATTLIST Employee isDepartmentHead CDATA #REQUIRED>
+        <!ATTLIST Employee lengthOfEmployment CDATA #REQUIRED>
+
+
