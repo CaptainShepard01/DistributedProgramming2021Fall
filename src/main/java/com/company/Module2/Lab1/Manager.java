@@ -35,7 +35,7 @@ public class Manager {
         Document doc = null;
         StaffDepartment department = new StaffDepartment();
         try {
-            doc = db.parse(new File("src/com/company/Module2/Lab1/StaffDepartment.xml"));
+            doc = db.parse(new File("src/main/java/com/company/Module2/Lab1/StaffDepartment.xml"));
         } catch (SAXException | IOException e) {
             e.printStackTrace();
             return department;
@@ -123,7 +123,7 @@ public class Manager {
         createDOMFromClass(department, doc);
 
         Source domSource = new DOMSource(doc);
-        Result fileResult = new StreamResult(new File("src/com/company/Module2/Lab1/StaffDepartment.xml"));
+        Result fileResult = new StreamResult(new File("src/main/java/com/company/Module2/Lab1/StaffDepartment.xml"));
         TransformerFactory factory = TransformerFactory.newInstance();
         Transformer transformer = factory.newTransformer();
         transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");

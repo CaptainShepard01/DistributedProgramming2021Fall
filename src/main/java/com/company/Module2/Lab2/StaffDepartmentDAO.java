@@ -121,7 +121,7 @@ public class StaffDepartmentDAO {
 
     public void deleteAllUnits() {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM DEPARTMENTUNITS");
+            PreparedStatement statement = connection.prepareStatement("TRUNCATE DEPARTMENTUNITS RESTART IDENTITY CASCADE");
             statement.executeUpdate();
             System.out.println("Department units table was cleared");
         } catch (SQLException e) {
@@ -132,7 +132,7 @@ public class StaffDepartmentDAO {
 
     public void deleteAllEmployees() {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM EMPLOYEES");
+            PreparedStatement statement = connection.prepareStatement("TRUNCATE EMPLOYEES RESTART IDENTITY CASCADE;");
             statement.executeUpdate();
             System.out.println("Employees table was cleared");
         } catch (SQLException e) {
@@ -167,10 +167,16 @@ public class StaffDepartmentDAO {
             for (int i = 0; i < toDelete.size(); ++i) {
                 deleteEmployee(toDelete.get(i).getId());
             }
+            PreparedStatement statement1 = connection.prepareStatement("DELETE FROM EMPLOYEES "+
+                    "WHERE unitid = "+
+                    "(SELECT id FROM DEPARTMENTUNITS WHERE name=?)");
+            statement1.setString(1, name);
 
             PreparedStatement statement = connection.prepareStatement("DELETE FROM DEPARTMENTUNITS " +
                     "WHERE name = ?");
             statement.setString(1, name);
+
+            statement1.executeUpdate();
             int exec = statement.executeUpdate();
             if (exec > 0) {
                 return true;

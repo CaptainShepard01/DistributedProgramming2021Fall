@@ -21,5 +21,8 @@ public class Main {
 //        manager.writeToFile(department);
         manager.dummyInitialization();
         manager.readFromFile();
+
+        manager.deleteDepartmentUnit("Unit-0");
+        manager.addDepartmentUnit(8, "Unit-365", 0);
     }
 }

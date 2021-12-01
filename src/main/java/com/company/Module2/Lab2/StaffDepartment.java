@@ -40,7 +40,7 @@ public class StaffDepartment {
         DepartmentUnit toDelete = getDepartmentUnit(unit.getName());
 
         if (toDelete != null) {
-            deleteDepartmentUnit(unit);
+            units.remove(toDelete);
         } else {
             System.out.printf("There is no such Department unit: %s\n", unit.getName());
         }
