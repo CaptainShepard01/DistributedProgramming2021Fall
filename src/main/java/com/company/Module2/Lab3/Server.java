@@ -1,6 +1,6 @@
 package com.company.Module2.Lab3;
 
-import com.company.Module2.Lab2.StaffDepartment;
+import com.company.Module2.Lab2.DAOInterface;
 import com.company.Module2.Lab2.StaffDepartmentDAO;
 
 import java.io.BufferedReader;
@@ -10,13 +10,15 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Server {
     private Socket socket = null;
     private ServerSocket server = null;
     private BufferedReader in = null;
     private PrintWriter out = null;
-    private static StaffDepartmentDAO departmentDAO;
+    private static DAOInterface departmentDAO;
 
     public static enum Query {
         Add_new_unit,
@@ -46,11 +48,27 @@ public class Server {
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 out = new PrintWriter(socket.getOutputStream(), true);
 
-                while (processQuery());
+                while (processQuery()) ;
             }
         } catch (IOException | SQLException | ClassNotFoundException e) {
             System.out.println("Error >>     " + e.getMessage());
         }
+    }
+
+
+    private Map<Query, String> makeQueriesHashMap(String[] params) {
+        Map<Query, String> resultMap = new HashMap<>();
+
+        resultMap.put(Query.Add_new_unit, departmentDAO.addNewUnit(params));
+        resultMap.put(Query.Delete_unit, departmentDAO.deleteUnit(params));
+        resultMap.put(Query.Add_employee_in_unit, departmentDAO.addEmployeeInUnit(params));
+        resultMap.put(Query.Delete_employee_from_unit, departmentDAO.deleteEmployeeFromUnit(params));
+        resultMap.put(Query.Change_employee_name, departmentDAO.changeEmployeeName(params));
+        resultMap.put(Query.Change_employee_unit, departmentDAO.changeEmployeeUnit(params));
+        resultMap.put(Query.Count_employees_in_unit, departmentDAO.countEmployeesInUnit(params));
+        resultMap.put(Query.Get_employees_from_unit, departmentDAO.getEmployeesFromUnit(params));
+
+        return resultMap;
     }
 
     private boolean processQuery() {

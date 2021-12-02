@@ -3,7 +3,7 @@ import java.sql.*;
 
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        StaffDepartmentDAO departmentDAO = new StaffDepartmentDAO();
+        DAOInterface departmentDAO = new StaffDepartmentDAO();
 
         departmentDAO.deleteAllEmployees();
         departmentDAO.deleteAllUnits();

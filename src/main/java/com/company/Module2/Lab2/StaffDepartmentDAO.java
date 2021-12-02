@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StaffDepartmentDAO {
+public class StaffDepartmentDAO implements DAOInterface{
     private final Connection connection;
 
     public StaffDepartmentDAO() throws ClassNotFoundException, SQLException {
@@ -247,6 +247,56 @@ public class StaffDepartmentDAO {
         } catch (SQLException e) {
             System.out.println(" >>     " + e.getMessage());
         }
+    }
+
+    @Override
+    public String addNewUnit(String[] params) {
+        return String.valueOf(addDepartmentUnit(params[1]));
+    }
+
+    @Override
+    public String deleteUnit(String[] params) {
+        return String.valueOf(deleteDepartmentUnit(params[1]));
+    }
+
+    @Override
+    public String addEmployeeInUnit(String[] params) {
+        return String.valueOf(addEmployee(params[1],
+                Boolean.parseBoolean(params[2]),
+                Integer.parseInt(params[3]),
+                params[4]));
+    }
+
+    @Override
+    public String deleteEmployeeFromUnit(String[] params) {
+        return String.valueOf(deleteEmployee(params[1], params[2]));
+    }
+
+    @Override
+    public String changeEmployeeName(String[] params) {
+        return String.valueOf(setEmployee(params[1], params[2], params[3],
+                Boolean.parseBoolean(params[4])));
+    }
+
+    @Override
+    public String changeEmployeeUnit(String[] params) {
+        return String.valueOf(setEmployee(params[1], params[2], params[3],
+                Boolean.parseBoolean(params[4])));
+    }
+
+    @Override
+    public String countEmployeesInUnit(String[] params) {
+        return null;
+    }
+
+    @Override
+    public String getEmployeesFromUnit(String[] params) {
+        return String.valueOf(countEmployees(params[1]));
+    }
+
+    @Override
+    public String getUnitsList(String[] params) {
+        return String.valueOf(findEmployeesFromUnit(params[1]));
     }
 
     public boolean addEmployee(String name, boolean isDepartmentHead, int lengthOfEmployment, String unitName) {
@@ -499,7 +549,6 @@ public class StaffDepartmentDAO {
             return null;
         }
     }
-
 
     public List<Employee> findEmployees(int lengthOfEmployment) {
         List<Employee> resultList = new ArrayList<>();
