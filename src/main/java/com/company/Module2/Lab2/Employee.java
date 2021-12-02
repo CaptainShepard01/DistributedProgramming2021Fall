@@ -1,13 +1,15 @@
 package com.company.Module2.Lab2;
 
-public class Employee {
+import java.io.Serializable;
+
+public class Employee implements Serializable {
     private int id;
     private String name;
     private boolean isDepartmentHead;
     private int lengthOfEmployment;
     private int unitId;
 
-    public Employee(String name, boolean isDepartmentHead, int lengthOfEmployment, int unitId) {
+    public Employee(String name, boolean isDepartmentHead, int lengthOfEmployment, int unitId){
         this.name = name;
         this.isDepartmentHead = isDepartmentHead;
         this.lengthOfEmployment = lengthOfEmployment;
@@ -75,7 +77,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Employee\n");
+        final StringBuffer sb = new StringBuffer("Employee: ");
         sb.append("id=").append(id);
         sb.append(", name='").append(name).append('\'');
         sb.append(", isDepartmentHead='").append(isDepartmentHead?"Yes":"No").append('\'');

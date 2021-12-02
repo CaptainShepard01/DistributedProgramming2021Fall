@@ -56,10 +56,7 @@ public class StaffDepartment {
             int maxEmployees = random.nextInt(4);
             for (int j = 0; j < maxEmployees; ++j) {
                 Employee employee = new Employee(j, "Employee-" + j, random.nextBoolean(), random.nextInt(50));
-                newUnit.fixHeadsOfDepartmentNumber(employee);
-                newUnit.addEmployee(employee);
             }
-            newUnit.fixHeadsOfDepartment();
         }
 
         return newDepartment;

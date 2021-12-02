@@ -38,6 +38,25 @@ public class StaffDepartmentDAO {
         }
     }
 
+    public List<DepartmentUnit> getDepartmentUnits() {
+        String sql = "SELECT * FROM DEPARTMENTUNITS";
+        List<DepartmentUnit> result = new ArrayList<>();
+        try {
+            ResultSet resultSet = connection.createStatement().executeQuery(sql);
+            System.out.println("Department units:");
+            while (resultSet.next()) {
+                result.add(new DepartmentUnit(resultSet.getInt("id"),
+                        resultSet.getString("name")));
+            }
+            resultSet.close();
+            return result;
+        } catch (SQLException e) {
+            System.out.println("Error while getting all department units!");
+            System.out.println(" >>     " + e.getMessage());
+            return result;
+        }
+    }
+
     public boolean addDepartmentUnit(String name) {
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO DEPARTMENTUNITS " +

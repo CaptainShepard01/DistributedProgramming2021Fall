@@ -35,7 +35,7 @@ public class Manager {
             doc = db.parse(new File("src/main/java/com/company/Module2/Lab1/StaffDepartment.xml"));
         } catch (SAXException | IOException e) {
             e.printStackTrace();
-            return department;
+            System.exit(-1);
         }
 
         Element root = doc.getDocumentElement();

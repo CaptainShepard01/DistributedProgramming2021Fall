@@ -27,6 +27,12 @@ public class Main {
 
         departmentDAO.addEmployee("Andriy", true,5, "Unit-5");
 
+        System.out.println();
+        departmentDAO.showDepartmentUnits();
+
+        System.out.println();
+        departmentDAO.showEmployees();
+
         departmentDAO.deleteEmployee("Egor", "Unit-2");
         departmentDAO.deleteEmployee("Gosha", "Unit-4");
 
