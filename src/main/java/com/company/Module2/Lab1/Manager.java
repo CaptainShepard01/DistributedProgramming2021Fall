@@ -1,8 +1,5 @@
 package com.company.Module2.Lab1;
 
-import com.company.Module2.Lab2.DepartmentUnit;
-import com.company.Module2.Lab2.Employee;
-import com.company.Module2.Lab2.StaffDepartment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -89,7 +86,7 @@ public class Manager {
 
             deptUnit.setAttribute("id", String.valueOf(unit.getId()));
             deptUnit.setAttribute("name", unit.getName());
-            deptUnit.setAttribute("numberOfEmloyees", String.valueOf(unit.getNumberOfEmployees()));
+            deptUnit.setAttribute("numberOfEmloyees", String.valueOf(unit.getNumberOfEmloyees()));
 
             root.appendChild(deptUnit);
 

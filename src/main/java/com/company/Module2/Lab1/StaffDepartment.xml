@@ -1,10 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <StaffDepartment>
-    <DepartmentUnit id="1" name="Unit-1" numberOfEmloyees="0"/>
-    <DepartmentUnit id="2" name="Unit-2" numberOfEmloyees="3">
-        <Employee id="0" isDepartmentHead="false" lengthOfEmployment="24" name="Employee-0"/>
-        <Employee id="1" isDepartmentHead="false" lengthOfEmployment="42" name="Employee-1"/>
-        <Employee id="2" isDepartmentHead="false" lengthOfEmployment="33" name="Employee-2"/>
-    </DepartmentUnit>
     <DepartmentUnit id="8" name="Unit-365" numberOfEmloyees="0"/>
 </StaffDepartment>

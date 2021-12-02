@@ -28,9 +28,8 @@ public class StaffDepartmentDAO {
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
-                int numberOfEmployees = resultSet.getInt("numberofemployees");
 
-                System.out.println(new DepartmentUnit(id, name, numberOfEmployees));
+                System.out.println(new DepartmentUnit(id, name));
             }
             resultSet.close();
         } catch (SQLException e) {
@@ -64,8 +63,7 @@ public class StaffDepartmentDAO {
 
             while (resultSet.next()) {
                 return new DepartmentUnit(resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        resultSet.getInt("numberofemployees"));
+                        resultSet.getString("name"));
             }
 
             return null;
@@ -85,8 +83,7 @@ public class StaffDepartmentDAO {
 
             while (resultSet.next()) {
                 return new DepartmentUnit(resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        resultSet.getInt("numberofemployees"));
+                        resultSet.getString("name"));
             }
 
             return null;
@@ -101,15 +98,16 @@ public class StaffDepartmentDAO {
 
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM DEPARTMENTUNITS " +
-                    "WHERE numberofemployees=?");
+                    "INNER JOIN EMPLOYEES ON DEPARTMENTUNITS.id = EMPLOYEES.unitid " +
+                    "GROUP BY DEPARTMENTUNITS.name " +
+                    "HAVING COUNT(*) = ?");
             statement.setInt(1, numberOfEmployees);
 
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 resultList.add(new DepartmentUnit(resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        resultSet.getInt("numberofemployees")));
+                        resultSet.getString("name")));
             }
 
             return resultList;
@@ -167,8 +165,8 @@ public class StaffDepartmentDAO {
             for (int i = 0; i < toDelete.size(); ++i) {
                 deleteEmployee(toDelete.get(i).getId());
             }
-            PreparedStatement statement1 = connection.prepareStatement("DELETE FROM EMPLOYEES "+
-                    "WHERE unitid = "+
+            PreparedStatement statement1 = connection.prepareStatement("DELETE FROM EMPLOYEES " +
+                    "WHERE unitid = " +
                     "(SELECT id FROM DEPARTMENTUNITS WHERE name=?)");
             statement1.setString(1, name);
 
@@ -195,12 +193,11 @@ public class StaffDepartmentDAO {
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE DEPARTMENTUNITS " +
-                            "SET name=?, numberofemployees=? " +
+                            "SET name=?" +
                             "WHERE id=?"
             );
             statement.setString(1, departmentUnit.getName());
-            statement.setInt(2, departmentUnit.getNumberOfEmployees());
-            statement.setInt(3, departmentUnit.getId());
+            statement.setInt(2, departmentUnit.getId());
             int exec = statement.executeUpdate();
 
             if (exec > 0) {
@@ -235,26 +232,27 @@ public class StaffDepartmentDAO {
 
     public boolean addEmployee(String name, boolean isDepartmentHead, int lengthOfEmployment, String unitName) {
         try {
-            DepartmentUnit unitToInsert = findDepartmentUnit(unitName);
+            PreparedStatement statement1 = connection.prepareStatement("SELECT id FROM DEPARTMENTUNITS " +
+                    "WHERE name = ?");
+            statement1.setString(1, unitName);
+            ResultSet set = statement1.executeQuery();
 
-            if (unitToInsert != null) {
-                int unitId = unitToInsert.getId();
+            int unitId = -1;
 
-                PreparedStatement statement = connection.prepareStatement("INSERT INTO EMPLOYEES " +
-                        "(name, isdepartmenthead, lengthofemployment, unitid) " +
-                        "VALUES(?, ?, ?, ?)");
-                statement.setString(1, name);
-                statement.setBoolean(2, isDepartmentHead);
-                statement.setInt(3, lengthOfEmployment);
-                statement.setInt(4, unitId);
-                statement.executeUpdate();
-
-                unitToInsert.increaseNumberOfEmployees();
-                setDepartmentUnit(unitToInsert);
-                return true;
-            } else {
-                return false;
+            if (set.next()) {
+                unitId = set.getInt("id");
             }
+
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO EMPLOYEES " +
+                    "(name, isdepartmenthead, lengthofemployment, unitid) " +
+                    "VALUES(?, ?, ?, ?)");
+            statement.setString(1, name);
+            statement.setBoolean(2, isDepartmentHead);
+            statement.setInt(3, lengthOfEmployment);
+            statement.setInt(4, unitId);
+            statement.executeUpdate();
+
+            return true;
         } catch (SQLException e) {
             System.out.println(" >>     " + e.getMessage());
             return false;
@@ -280,26 +278,25 @@ public class StaffDepartmentDAO {
 
     public boolean deleteEmployee(String name, String unitName) {
         try {
-            Employee toDelete = findEmployee(name, unitName);
-            if (toDelete != null) {
-                DepartmentUnit toSearchIn = findDepartmentUnit(toDelete.getUnitId());
+            PreparedStatement statement1 = connection.prepareStatement("SELECT id FROM DEPARTMENTUNITS " +
+                    "WHERE name = ?");
+            statement1.setString(1, unitName);
+            ResultSet set = statement1.executeQuery();
 
-                if (toSearchIn != null) {
-                    toSearchIn.decreaseNumberOfEmployees();
+            int unitId = -1;
 
-                    PreparedStatement statement = connection.prepareStatement("DELETE FROM EMPLOYEES " +
-                            "WHERE name = ?");
-                    statement.setString(1, name);
-                    int exec = statement.executeUpdate();
-                    if (exec > 0) {
-                        setDepartmentUnit(toSearchIn);
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
+            if (set.next()) {
+                unitId = set.getInt("id");
+            }
+
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM EMPLOYEES " +
+                    "WHERE name = ? AND unitid = ?");
+            statement.setString(1, name);
+            statement.setInt(2, unitId);
+            int exec = statement.executeUpdate();
+
+            if (exec > 0) {
+                return true;
             } else {
                 return false;
             }
@@ -309,18 +306,39 @@ public class StaffDepartmentDAO {
         }
     }
 
-    public boolean setEmployee(String name, String unitName, String newName) {
+    public boolean setEmployee(String name, String unitName, String newName, boolean isNewUnitName) {
         try {
-            Employee toChange = findEmployee(name, unitName);
+            PreparedStatement statement1 = connection.prepareStatement("SELECT id FROM DEPARTMENTUNITS " +
+                    "WHERE name = ?");
+            statement1.setString(1, unitName);
+            ResultSet set = statement1.executeQuery();
 
-            if (toChange != null) {
+            int unitId = -1;
+
+            if (set.next()) {
+                unitId = set.getInt("id");
+            }
+
+            if (isNewUnitName) {
+                PreparedStatement statement2 = connection.prepareStatement("SELECT id FROM DEPARTMENTUNITS " +
+                        "WHERE name = ?");
+                statement2.setString(1, newName);
+                set = statement1.executeQuery();
+
+                int newUnitId = -1;
+
+                if (set.next()) {
+                    newUnitId = set.getInt("id");
+                }
+
                 PreparedStatement statement = connection.prepareStatement(
                         "UPDATE EMPLOYEES " +
-                                "SET name=? " +
-                                "WHERE name=?"
+                                "SET unitid=? " +
+                                "WHERE name=? AND unitid=?"
                 );
-                statement.setString(1, newName);
+                statement.setInt(1, newUnitId);
                 statement.setString(2, name);
+                statement.setInt(3, unitId);
                 int exec = statement.executeUpdate();
 
                 if (exec > 0) {
@@ -329,7 +347,21 @@ public class StaffDepartmentDAO {
                     return false;
                 }
             } else {
-                return false;
+                PreparedStatement statement = connection.prepareStatement(
+                        "UPDATE EMPLOYEES " +
+                                "SET name=? " +
+                                "WHERE name=? AND unitid=?"
+                );
+                statement.setString(1, newName);
+                statement.setString(2, name);
+                statement.setInt(3, unitId);
+                int exec = statement.executeUpdate();
+
+                if (exec > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
         } catch (SQLException e) {
             System.out.println(" >>     " + e.getMessage());
@@ -339,23 +371,29 @@ public class StaffDepartmentDAO {
 
     public boolean setEmployee(String name, String unitName, int lengthOfEmployment) {
         try {
-            Employee toChange = findEmployee(name, unitName);
+            PreparedStatement statement1 = connection.prepareStatement("SELECT id FROM DEPARTMENTUNITS " +
+                    "WHERE name = ?");
+            statement1.setString(1, unitName);
+            ResultSet set = statement1.executeQuery();
 
-            if (toChange != null) {
-                PreparedStatement statement = connection.prepareStatement(
-                        "UPDATE EMPLOYEES " +
-                                "SET lengthofemployment=? " +
-                                "WHERE name=?"
-                );
-                statement.setInt(1, lengthOfEmployment);
-                statement.setString(2, name);
-                int exec = statement.executeUpdate();
+            int unitId = -1;
 
-                if (exec > 0) {
-                    return true;
-                } else {
-                    return false;
-                }
+            if (set.next()) {
+                unitId = set.getInt("id");
+            }
+
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE EMPLOYEES " +
+                            "SET lengthofemployment=? " +
+                            "WHERE name=? AND unitid=?"
+            );
+            statement.setInt(1, lengthOfEmployment);
+            statement.setString(2, name);
+            statement.setInt(3, unitId);
+            int exec = statement.executeUpdate();
+
+            if (exec > 0) {
+                return true;
             } else {
                 return false;
             }
@@ -428,7 +466,7 @@ public class StaffDepartmentDAO {
 
             ResultSet resultSet = statement.executeQuery();
 
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 return new Employee(resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getBoolean("isdepartmenthead"),
@@ -473,28 +511,53 @@ public class StaffDepartmentDAO {
         List<Employee> resultList = new ArrayList<>();
 
         try {
-            DepartmentUnit unitToFind = findDepartmentUnit(unitName);
+            PreparedStatement statement1 = connection.prepareStatement("SELECT id FROM DEPARTMENTUNITS " +
+                    "WHERE name = ?");
+            statement1.setString(1, unitName);
+            ResultSet set = statement1.executeQuery();
 
-            if (unitToFind != null) {
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM EMPLOYEES " +
-                        "WHERE unitid=?");
-                statement.setInt(1, unitToFind.getId());
+            int unitId = -1;
 
-                ResultSet resultSet = statement.executeQuery();
+            if (set.next()) {
+                unitId = set.getInt("id");
+            }
 
-                while (resultSet.next()) {
-                    resultList.add(new Employee(resultSet.getInt("id"),
-                            resultSet.getString("name"),
-                            resultSet.getBoolean("isdepartmenthead"),
-                            resultSet.getInt("lengthofemployment"),
-                            resultSet.getInt("unitid")));
-                }
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM EMPLOYEES " +
+                    "WHERE unitid=?");
+            statement.setInt(1, unitId);
 
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                resultList.add(new Employee(resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getBoolean("isdepartmenthead"),
+                        resultSet.getInt("lengthofemployment"),
+                        resultSet.getInt("unitid")));
             }
             return resultList;
         } catch (SQLException e) {
             System.out.println(" >>     " + e.getMessage());
             return resultList;
         }
+    }
+
+    public int countEmployees(String unitName) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT COUNT(*) " +
+                    "FROM DEPARTMENTUNITS INNER JOIN EMPLOYEES ON DEPARTMENTUNITS.id = EMPLOYEES.unitid " +
+                    "GROUP BY departmentunits.name " +
+                    "HAVING DEPARTMENTUNITS.name = ?");
+            statement.setString(1, unitName);
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("count");
+            }
+        } catch (SQLException e) {
+            System.out.println(" >>     " + e.getMessage());
+            return -1;
+        }
+        return -1;
     }
 }

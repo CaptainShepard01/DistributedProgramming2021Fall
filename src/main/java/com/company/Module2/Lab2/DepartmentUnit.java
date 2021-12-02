@@ -6,18 +6,15 @@ import java.util.Random;
 public class DepartmentUnit {
     private int id;
     private String name;
-    private int numberOfEmployees;
     private ArrayList<Employee> employees;
 
-    public DepartmentUnit(String name, int numberOfEmployees) {
+    public DepartmentUnit(String name) {
         this.name = name;
-        this.numberOfEmployees = numberOfEmployees;
     }
 
     public DepartmentUnit(int id, String name, int numberOfEmloyees) {
         this.id = id;
         this.name = name;
-        this.numberOfEmployees = numberOfEmloyees;
     }
 
     public DepartmentUnit(int id, String name) {
@@ -41,18 +38,6 @@ public class DepartmentUnit {
         return name;
     }
 
-    public int getNumberOfEmployees() {
-        return numberOfEmployees;
-    }
-
-    public void increaseNumberOfEmployees() {
-        this.numberOfEmployees++;
-    }
-
-    public void decreaseNumberOfEmployees() {
-        this.numberOfEmployees--;
-    }
-
     public void setCode(int id) {
         this.id = id;
     }
@@ -63,7 +48,6 @@ public class DepartmentUnit {
 
     public void addEmployee(Employee employee) {
         employees.add(employee);
-        numberOfEmployees++;
     }
 
     public Employee getEmployee(String name) {
@@ -88,7 +72,7 @@ public class DepartmentUnit {
     }
 
     public void fixHeadsOfDepartment() {
-        if (numberOfEmployees == 0) {
+        if (employees.size() == 0) {
             return;
         }
 
@@ -99,7 +83,7 @@ public class DepartmentUnit {
             }
         }
 
-        int index = random.nextInt(numberOfEmployees);
+        int index = random.nextInt(employees.size());
         employees.get(index).setDepartmentHead(true);
     }
 
@@ -121,7 +105,6 @@ public class DepartmentUnit {
 
         if (toDelete != null) {
             employees.remove(toDelete);
-            numberOfEmployees--;
         } else {
             System.out.printf("There is no Employee with name %s in Department unit %s\n", name, this.name);
         }
@@ -132,7 +115,6 @@ public class DepartmentUnit {
         final StringBuffer sb = new StringBuffer("DepartmentUnit\n");
         sb.append("id=").append(id);
         sb.append(", name='").append(name).append('\'');
-        sb.append(", numberOfEmloyees= '").append(numberOfEmployees).append('\'');
         return sb.toString();
     }
 }

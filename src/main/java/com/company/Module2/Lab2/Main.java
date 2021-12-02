@@ -8,6 +8,8 @@ public class Main {
         departmentDAO.deleteAllEmployees();
         departmentDAO.deleteAllUnits();
 
+//        departmentDAO.stop();
+
         departmentDAO.addDepartmentUnit("Unit-1");
         departmentDAO.addDepartmentUnit("Unit-2");
         departmentDAO.addDepartmentUnit("Unit-3");
@@ -30,10 +32,12 @@ public class Main {
 
         departmentDAO.deleteDepartmentUnit("Unit-1");
 
-        departmentDAO.setEmployee("Anton", "Unit-3", "Fedor");
-        departmentDAO.setEmployee("Anton", "Unit-3", "Egor");
+        departmentDAO.setEmployee("Anton", "Unit-3", "Fedor", false);
+        departmentDAO.setEmployee("Anton", "Unit-3", "Egor", false);
 
         System.out.println(departmentDAO.findEmployee("Ruslan", "Unit-3"));
+
+        System.out.println(departmentDAO.countEmployees("Unit-3"));
 
         System.out.println();
         departmentDAO.showDepartmentUnits();
