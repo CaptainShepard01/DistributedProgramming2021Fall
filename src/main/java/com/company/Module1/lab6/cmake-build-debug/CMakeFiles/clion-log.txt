@@ -1,0 +1,25 @@
+C:\Users\balanton\AppData\Local\JetBrains\CLion2021.2\cygwin_cmake\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" /cygdrive/e/Projects/DistributedProgramming2021Fall/src/com/company/lab6
+-- The C compiler identification is GNU 7.4.0
+-- The CXX compiler identification is GNU 7.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /cygdrive/e/Projects/DistributedProgramming2021Fall/src/com/company/lab6/cmake-build-debug
+
+Cannot get compiler information:
+	Compiler exited with error code 1: E:\Programs\Sage\SageMath 9.1\runtime\bin\c++.exe -xc++ -g -std=gnu++1z -fpch-preprocess -v -dD -E
+	c++: error: /tmp/response-file12760395240498574209.txt: No such file or directory
+	c++: error: /tmp/compiler-file4117222331263154692: No such file or directory
+	c++: fatal error: no input files
+	compilation terminated.
+	
+	

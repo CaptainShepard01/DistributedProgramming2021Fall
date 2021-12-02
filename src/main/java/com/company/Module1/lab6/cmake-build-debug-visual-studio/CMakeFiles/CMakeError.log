@@ -1,0 +1,183 @@
+The MPI test test_mpi for C in mode normal failed to compile with the following output:
+Change Dir: E:/Projects/DistributedProgramming2021Fall/src/com/company/lab6/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake -f Makefile /nologo cmTC_b8626\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_b8626.dir\build.make /nologo -L                  CMakeFiles\cmTC_b8626.dir\build
+Building C object CMakeFiles/cmTC_b8626.dir/test_mpi.c.obj
+	"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_b8626.dir\test_mpi.c.obj.d --working-dir=E:\Projects\DistributedProgramming2021Fall\src\com\company\lab6\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp --filter-prefix="" -- C:\PROGRA~2\MIB055~1\2019\ENTERP~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @C:\Users\balanton\AppData\Local\Temp\nmEC47.tmp
+NMAKE : fatal error U1077: '"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe"' : return code '0x2'
+Stop.
+NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"' : return code '0x2'
+Stop.
+
+
+
+The MPI test test_mpi for CXX in mode normal failed to compile with the following output:
+Change Dir: E:/Projects/DistributedProgramming2021Fall/src/com/company/lab6/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake -f Makefile /nologo cmTC_44c1d\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_44c1d.dir\build.make /nologo -L                  CMakeFiles\cmTC_44c1d.dir\build
+Building CXX object CMakeFiles/cmTC_44c1d.dir/test_mpi.cpp.obj
+	"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_44c1d.dir\test_mpi.cpp.obj.d --working-dir=E:\Projects\DistributedProgramming2021Fall\src\com\company\lab6\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp --filter-prefix="" -- C:\PROGRA~2\MIB055~1\2019\ENTERP~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @C:\Users\balanton\AppData\Local\Temp\nmF8D9.tmp
+NMAKE : fatal error U1077: '"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe"' : return code '0x2'
+Stop.
+NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"' : return code '0x2'
+Stop.
+
+
+
+The MPI test test_mpi for C in mode normal failed to compile with the following output:
+Change Dir: E:/Projects/DistributedProgramming2021Fall/src/com/company/lab6/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake -f Makefile /nologo cmTC_7e850\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_7e850.dir\build.make /nologo -L                  CMakeFiles\cmTC_7e850.dir\build
+Building C object CMakeFiles/cmTC_7e850.dir/test_mpi.c.obj
+	"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_7e850.dir\test_mpi.c.obj.d --working-dir=E:\Projects\DistributedProgramming2021Fall\src\com\company\lab6\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp --filter-prefix="" -- C:\PROGRA~2\MIB055~1\2019\ENTERP~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @C:\Users\balanton\AppData\Local\Temp\nmFFAB.tmp
+NMAKE : fatal error U1077: '"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe"' : return code '0x2'
+Stop.
+NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"' : return code '0x2'
+Stop.
+
+
+
+The MPI test test_mpi for CXX in mode normal failed to compile with the following output:
+Change Dir: E:/Projects/DistributedProgramming2021Fall/src/com/company/lab6/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake -f Makefile /nologo cmTC_4e856\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_4e856.dir\build.make /nologo -L                  CMakeFiles\cmTC_4e856.dir\build
+Building CXX object CMakeFiles/cmTC_4e856.dir/test_mpi.cpp.obj
+	"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_4e856.dir\test_mpi.cpp.obj.d --working-dir=E:\Projects\DistributedProgramming2021Fall\src\com\company\lab6\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp --filter-prefix="" -- C:\PROGRA~2\MIB055~1\2019\ENTERP~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @C:\Users\balanton\AppData\Local\Temp\nmA78.tmp
+cl : Command line warning D9002 : ignoring unknown option '-std=c++11'
+NMAKE : fatal error U1077: '"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe"' : return code '0x2'
+Stop.
+NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"' : return code '0x2'
+Stop.
+
+
+
+The MPI test test_mpi for C in mode normal failed to compile with the following output:
+Change Dir: E:/Projects/DistributedProgramming2021Fall/src/com/company/lab6/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake -f Makefile /nologo cmTC_2ebc9\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_2ebc9.dir\build.make /nologo -L                  CMakeFiles\cmTC_2ebc9.dir\build
+Building C object CMakeFiles/cmTC_2ebc9.dir/test_mpi.c.obj
+	"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_2ebc9.dir\test_mpi.c.obj.d --working-dir=E:\Projects\DistributedProgramming2021Fall\src\com\company\lab6\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp --filter-prefix="" -- C:\PROGRA~2\MIB055~1\2019\ENTERP~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @C:\Users\balanton\AppData\Local\Temp\nm39A6.tmp
+NMAKE : fatal error U1077: '"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe"' : return code '0x2'
+Stop.
+NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"' : return code '0x2'
+Stop.
+
+
+
+The MPI test test_mpi for CXX in mode normal failed to compile with the following output:
+Change Dir: E:/Projects/DistributedProgramming2021Fall/src/com/company/lab6/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake -f Makefile /nologo cmTC_10305\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_10305.dir\build.make /nologo -L                  CMakeFiles\cmTC_10305.dir\build
+Building CXX object CMakeFiles/cmTC_10305.dir/test_mpi.cpp.obj
+	"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_10305.dir\test_mpi.cpp.obj.d --working-dir=E:\Projects\DistributedProgramming2021Fall\src\com\company\lab6\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp --filter-prefix="" -- C:\PROGRA~2\MIB055~1\2019\ENTERP~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @C:\Users\balanton\AppData\Local\Temp\nm44F1.tmp
+NMAKE : fatal error U1077: '"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe"' : return code '0x2'
+Stop.
+NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"' : return code '0x2'
+Stop.
+
+
+
+The MPI test test_mpi for C in mode normal failed to compile with the following output:
+Change Dir: E:/Projects/DistributedProgramming2021Fall/src/com/company/lab6/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake -f Makefile /nologo cmTC_cf4e5\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_cf4e5.dir\build.make /nologo -L                  CMakeFiles\cmTC_cf4e5.dir\build
+Building C object CMakeFiles/cmTC_cf4e5.dir/test_mpi.c.obj
+	"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_cf4e5.dir\test_mpi.c.obj.d --working-dir=E:\Projects\DistributedProgramming2021Fall\src\com\company\lab6\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp --filter-prefix="" -- C:\PROGRA~2\MIB055~1\2019\ENTERP~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @C:\Users\balanton\AppData\Local\Temp\nm9B8.tmp
+NMAKE : fatal error U1077: '"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe"' : return code '0x2'
+Stop.
+NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"' : return code '0x2'
+Stop.
+
+
+
+The MPI test test_mpi for CXX in mode normal failed to compile with the following output:
+Change Dir: E:/Projects/DistributedProgramming2021Fall/src/com/company/lab6/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake -f Makefile /nologo cmTC_b6088\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_b6088.dir\build.make /nologo -L                  CMakeFiles\cmTC_b6088.dir\build
+Building CXX object CMakeFiles/cmTC_b6088.dir/test_mpi.cpp.obj
+	"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_b6088.dir\test_mpi.cpp.obj.d --working-dir=E:\Projects\DistributedProgramming2021Fall\src\com\company\lab6\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp --filter-prefix="" -- C:\PROGRA~2\MIB055~1\2019\ENTERP~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @C:\Users\balanton\AppData\Local\Temp\nm1522.tmp
+NMAKE : fatal error U1077: '"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe"' : return code '0x2'
+Stop.
+NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"' : return code '0x2'
+Stop.
+
+
+
+The MPI test test_mpi for C in mode normal failed to compile with the following output:
+Change Dir: E:/Projects/DistributedProgramming2021Fall/src/com/company/lab6/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake -f Makefile /nologo cmTC_6927b\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_6927b.dir\build.make /nologo -L                  CMakeFiles\cmTC_6927b.dir\build
+Building C object CMakeFiles/cmTC_6927b.dir/test_mpi.c.obj
+	"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_6927b.dir\test_mpi.c.obj.d --working-dir=E:\Projects\DistributedProgramming2021Fall\src\com\company\lab6\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp --filter-prefix="" -- C:\PROGRA~2\MIB055~1\2019\ENTERP~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @C:\Users\balanton\AppData\Local\Temp\nm6A95.tmp
+NMAKE : fatal error U1077: '"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe"' : return code '0x2'
+Stop.
+NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"' : return code '0x2'
+Stop.
+
+
+
+The MPI test test_mpi for CXX in mode normal failed to compile with the following output:
+Change Dir: E:/Projects/DistributedProgramming2021Fall/src/com/company/lab6/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake -f Makefile /nologo cmTC_2007d\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_2007d.dir\build.make /nologo -L                  CMakeFiles\cmTC_2007d.dir\build
+Building CXX object CMakeFiles/cmTC_2007d.dir/test_mpi.cpp.obj
+	"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_2007d.dir\test_mpi.cpp.obj.d --working-dir=E:\Projects\DistributedProgramming2021Fall\src\com\company\lab6\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp --filter-prefix="" -- C:\PROGRA~2\MIB055~1\2019\ENTERP~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @C:\Users\balanton\AppData\Local\Temp\nm7591.tmp
+NMAKE : fatal error U1077: '"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe"' : return code '0x2'
+Stop.
+NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"' : return code '0x2'
+Stop.
+
+
+
+The MPI test test_mpi for C in mode normal failed to compile with the following output:
+Change Dir: E:/Projects/DistributedProgramming2021Fall/src/com/company/lab6/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake -f Makefile /nologo cmTC_51138\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_51138.dir\build.make /nologo -L                  CMakeFiles\cmTC_51138.dir\build
+Building C object CMakeFiles/cmTC_51138.dir/test_mpi.c.obj
+	"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_51138.dir\test_mpi.c.obj.d --working-dir=E:\Projects\DistributedProgramming2021Fall\src\com\company\lab6\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp --filter-prefix="" -- C:\PROGRA~2\MIB055~1\2019\ENTERP~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @C:\Users\balanton\AppData\Local\Temp\nm181B.tmp
+NMAKE : fatal error U1077: '"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe"' : return code '0x2'
+Stop.
+NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"' : return code '0x2'
+Stop.
+
+
+
+The MPI test test_mpi for CXX in mode normal failed to compile with the following output:
+Change Dir: E:/Projects/DistributedProgramming2021Fall/src/com/company/lab6/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake -f Makefile /nologo cmTC_860ef\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_860ef.dir\build.make /nologo -L                  CMakeFiles\cmTC_860ef.dir\build
+Building CXX object CMakeFiles/cmTC_860ef.dir/test_mpi.cpp.obj
+	"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_860ef.dir\test_mpi.cpp.obj.d --working-dir=E:\Projects\DistributedProgramming2021Fall\src\com\company\lab6\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp --filter-prefix="" -- C:\PROGRA~2\MIB055~1\2019\ENTERP~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @C:\Users\balanton\AppData\Local\Temp\nm2337.tmp
+NMAKE : fatal error U1077: '"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe"' : return code '0x2'
+Stop.
+NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"' : return code '0x2'
+Stop.
+
+
+
+The MPI test test_mpi for C in mode normal failed to compile with the following output:
+Change Dir: E:/Projects/DistributedProgramming2021Fall/src/com/company/lab6/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake -f Makefile /nologo cmTC_1fb00\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_1fb00.dir\build.make /nologo -L                  CMakeFiles\cmTC_1fb00.dir\build
+Building C object CMakeFiles/cmTC_1fb00.dir/test_mpi.c.obj
+	"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_1fb00.dir\test_mpi.c.obj.d --working-dir=E:\Projects\DistributedProgramming2021Fall\src\com\company\lab6\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp --filter-prefix="" -- C:\PROGRA~2\MIB055~1\2019\ENTERP~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @C:\Users\balanton\AppData\Local\Temp\nmB3FD.tmp
+NMAKE : fatal error U1077: '"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe"' : return code '0x2'
+Stop.
+NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"' : return code '0x2'
+Stop.
+
+
+
+The MPI test test_mpi for CXX in mode normal failed to compile with the following output:
+Change Dir: E:/Projects/DistributedProgramming2021Fall/src/com/company/lab6/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake -f Makefile /nologo cmTC_016d1\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_016d1.dir\build.make /nologo -L                  CMakeFiles\cmTC_016d1.dir\build
+Building CXX object CMakeFiles/cmTC_016d1.dir/test_mpi.cpp.obj
+	"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_016d1.dir\test_mpi.cpp.obj.d --working-dir=E:\Projects\DistributedProgramming2021Fall\src\com\company\lab6\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp --filter-prefix="" -- C:\PROGRA~2\MIB055~1\2019\ENTERP~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @C:\Users\balanton\AppData\Local\Temp\nmBE9C.tmp
+NMAKE : fatal error U1077: '"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe"' : return code '0x2'
+Stop.
+NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\bin\HostX86\x86\nmake.exe"' : return code '0x2'
+Stop.
+
+
+

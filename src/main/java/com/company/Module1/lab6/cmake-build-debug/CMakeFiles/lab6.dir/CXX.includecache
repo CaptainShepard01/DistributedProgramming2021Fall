@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/e/Projects/DistributedProgramming2021Fall/src/com/company/lab6/main.cpp
+stdio.h
+-
+stdlib.h
+-
+time.h
+-
+math.h
+-
+mpi.h
+-
+

@@ -1,0 +1,8 @@
+"E:\Programs\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - NMake Makefiles" E:\Projects\DistributedProgramming2021Fall\src\com\company\lab6
+-- Found MPI_C: C:/Program Files (x86)/Microsoft SDKs/MPI/Lib/x86/msmpi.lib (found version "2.0") 
+-- Found MPI_CXX: C:/Program Files (x86)/Microsoft SDKs/MPI/Lib/x86/msmpi.lib (found version "2.0") 
+-- Found MPI: TRUE (found version "2.0")  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: E:/Projects/DistributedProgramming2021Fall/src/com/company/lab6/cmake-build-debug-visual-studio
+Cannot resolve compiler path 'mpicxx'
