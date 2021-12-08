@@ -1,13 +1,16 @@
-package com.company.Module2.Lab2;
+package com.company.Module2.Lab4;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StaffDepartmentDAO implements DAOInterface{
+public class StaffDepartmentDAO extends UnicastRemoteObject implements StaffDepartment {
     private final Connection connection;
 
-    public StaffDepartmentDAO() throws ClassNotFoundException, SQLException {
+    public StaffDepartmentDAO() throws ClassNotFoundException, SQLException, RemoteException {
+        super();
         Class.forName("org.postgresql.Driver");
         final String user = "postgres";
         final String password = "password";
@@ -16,11 +19,11 @@ public class StaffDepartmentDAO implements DAOInterface{
         connection = DriverManager.getConnection(url, user, password);
     }
 
-    public void stop() throws SQLException {
+    public void stop() throws SQLException, RemoteException {
         connection.close();
     }
 
-    public void showDepartmentUnits() {
+    public void showDepartmentUnits() throws RemoteException {
         String sql = "SELECT * FROM DEPARTMENTUNITS";
         try {
             ResultSet resultSet = connection.createStatement().executeQuery(sql);
@@ -38,7 +41,7 @@ public class StaffDepartmentDAO implements DAOInterface{
         }
     }
 
-    public List<DepartmentUnit> getDepartmentUnits() {
+    public List<DepartmentUnit> getDepartmentUnits() throws RemoteException {
         String sql = "SELECT * FROM DEPARTMENTUNITS";
         List<DepartmentUnit> result = new ArrayList<>();
         try {
@@ -57,7 +60,7 @@ public class StaffDepartmentDAO implements DAOInterface{
         }
     }
 
-    public boolean addDepartmentUnit(String name) {
+    public boolean addDepartmentUnit(String name) throws RemoteException {
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO DEPARTMENTUNITS " +
                     "(name) " +
@@ -72,7 +75,7 @@ public class StaffDepartmentDAO implements DAOInterface{
         }
     }
 
-    public DepartmentUnit findDepartmentUnit(int id) {
+    public DepartmentUnit findDepartmentUnit(int id) throws RemoteException {
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM DEPARTMENTUNITS " +
                     "WHERE id=?");
@@ -92,7 +95,7 @@ public class StaffDepartmentDAO implements DAOInterface{
         }
     }
 
-    public DepartmentUnit findDepartmentUnit(String name) {
+    public DepartmentUnit findDepartmentUnit(String name) throws RemoteException {
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM DEPARTMENTUNITS " +
                     "WHERE name=?");
@@ -112,7 +115,7 @@ public class StaffDepartmentDAO implements DAOInterface{
         }
     }
 
-    public List<DepartmentUnit> findDepartmentUnits(int numberOfEmployees) {
+    public List<DepartmentUnit> findDepartmentUnits(int numberOfEmployees) throws RemoteException {
         List<DepartmentUnit> resultList = new ArrayList<>();
 
         try {
@@ -136,7 +139,7 @@ public class StaffDepartmentDAO implements DAOInterface{
         }
     }
 
-    public void deleteAllUnits() {
+    public void deleteAllUnits() throws RemoteException {
         try {
             PreparedStatement statement = connection.prepareStatement("TRUNCATE DEPARTMENTUNITS RESTART IDENTITY CASCADE");
             statement.executeUpdate();
@@ -147,7 +150,7 @@ public class StaffDepartmentDAO implements DAOInterface{
         }
     }
 
-    public void deleteAllEmployees() {
+    public void deleteAllEmployees() throws RemoteException {
         try {
             PreparedStatement statement = connection.prepareStatement("TRUNCATE EMPLOYEES RESTART IDENTITY CASCADE;");
             statement.executeUpdate();
@@ -158,7 +161,7 @@ public class StaffDepartmentDAO implements DAOInterface{
         }
     }
 
-    public boolean deleteDepartmentUnit(int id) {
+    public boolean deleteDepartmentUnit(int id) throws RemoteException {
         try {
             PreparedStatement statement = connection.prepareStatement("DELETE FROM DEPARTMENTUNITS " +
                     "WHERE id = ?");
@@ -177,7 +180,7 @@ public class StaffDepartmentDAO implements DAOInterface{
         }
     }
 
-    public boolean deleteDepartmentUnit(String name) {
+    public boolean deleteDepartmentUnit(String name) throws RemoteException {
         try {
             List<Employee> toDelete = findEmployeesFromUnit(name);
 
@@ -208,7 +211,7 @@ public class StaffDepartmentDAO implements DAOInterface{
         }
     }
 
-    public boolean setDepartmentUnit(DepartmentUnit departmentUnit) {
+    public boolean setDepartmentUnit(DepartmentUnit departmentUnit) throws RemoteException {
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE DEPARTMENTUNITS " +
@@ -230,7 +233,7 @@ public class StaffDepartmentDAO implements DAOInterface{
         }
     }
 
-    public void showEmployees() {
+    public void showEmployees() throws RemoteException {
         String sql = "SELECT * FROM EMPLOYEES";
         try {
             ResultSet resultSet = connection.createStatement().executeQuery(sql);
@@ -250,53 +253,50 @@ public class StaffDepartmentDAO implements DAOInterface{
     }
 
     @Override
-    public String addNewUnit(String[] params) {
-        return String.valueOf(addDepartmentUnit(params[1]));
+    public synchronized boolean addNewUnit(String unitName) throws RemoteException {
+        return addDepartmentUnit(unitName);
     }
 
     @Override
-    public String deleteUnit(String[] params) {
-        return String.valueOf(deleteDepartmentUnit(params[1]));
+    public synchronized boolean deleteUnit(String unitName) throws RemoteException {
+        return deleteDepartmentUnit(unitName);
     }
 
     @Override
-    public String addEmployeeInUnit(String[] params) {
-        return String.valueOf(addEmployee(params[1],
-                Boolean.parseBoolean(params[2]),
-                Integer.parseInt(params[3]),
-                params[4]));
+    public synchronized boolean addEmployeeInUnit(String name, boolean isUnitHead, int lengthOfEmployment, String unitName) throws RemoteException{
+        return addEmployee(name, isUnitHead, lengthOfEmployment, unitName);
     }
 
     @Override
-    public String deleteEmployeeFromUnit(String[] params) {
-        return String.valueOf(deleteEmployee(params[1], params[2]));
+    public synchronized boolean deleteEmployeeFromUnit(String employeeName, String unitName) throws RemoteException {
+        return deleteEmployee(employeeName, unitName);
     }
 
     @Override
-    public String changeEmployeeName(String[] params) {
-        return String.valueOf(setEmployee(params[1], params[2], params[3],
-                Boolean.parseBoolean(params[4])));
+    public synchronized boolean changeEmployeeName(String employeeName, String unitName, String newName) throws RemoteException {
+        return setEmployee(employeeName, unitName, newName,
+                false);
     }
 
     @Override
-    public String changeEmployeeUnit(String[] params) {
-        return String.valueOf(setEmployee(params[1], params[2], params[3],
-                Boolean.parseBoolean(params[4])));
+    public synchronized boolean changeEmployeeUnit(String employeeName, String unitName, String newName) throws RemoteException {
+        return setEmployee(employeeName, unitName, newName,
+                true);
     }
 
     @Override
-    public String countEmployeesInUnit(String[] params) {
-        return String.valueOf(countEmployees(params[1]));
+    public synchronized int countEmployeesInUnit(String unitName) throws RemoteException {
+        return countEmployees(unitName);
     }
 
     @Override
-    public String getEmployeesFromUnit(String[] params) {
-        return String.valueOf(findEmployeesFromUnit(params[1]));
+    public synchronized List<Employee> getEmployeesFromUnit(String unitName) throws RemoteException {
+        return findEmployeesFromUnit(unitName);
     }
 
     @Override
-    public String getUnitsList(String[] params) {
-        return String.valueOf(getDepartmentUnits());
+    public synchronized List<DepartmentUnit> getUnitsList() throws RemoteException {
+        return getDepartmentUnits();
     }
 
     public boolean addEmployee(String name, boolean isDepartmentHead, int lengthOfEmployment, String unitName) {
@@ -312,13 +312,24 @@ public class StaffDepartmentDAO implements DAOInterface{
                 unitId = set.getInt("id");
             }
 
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO EMPLOYEES " +
+            Employee employee = new Employee(name, isDepartmentHead, lengthOfEmployment, unitId);
+
+            return addEmployee(employee);
+        } catch (SQLException e) {
+            System.out.println(" >>     " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean addEmployee(Employee employee) {
+        try {
+                        PreparedStatement statement = connection.prepareStatement("INSERT INTO EMPLOYEES " +
                     "(name, isdepartmenthead, lengthofemployment, unitid) " +
                     "VALUES(?, ?, ?, ?)");
-            statement.setString(1, name);
-            statement.setBoolean(2, isDepartmentHead);
-            statement.setInt(3, lengthOfEmployment);
-            statement.setInt(4, unitId);
+            statement.setString(1, employee.getName());
+            statement.setBoolean(2, employee.isDepartmentHead());
+            statement.setInt(3, employee.getLengthOfEmployment());
+            statement.setInt(4, employee.getUnitId());
             statement.executeUpdate();
 
             return true;
@@ -544,7 +555,7 @@ public class StaffDepartmentDAO implements DAOInterface{
             }
 
             return null;
-        } catch (SQLException e) {
+        } catch (SQLException | RemoteException e) {
             System.out.println(" >>     " + e.getMessage());
             return null;
         }
