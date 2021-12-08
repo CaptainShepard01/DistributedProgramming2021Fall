@@ -36,9 +36,9 @@ public class Client {
             Thread.sleep(1000);
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String response = new String(delivery.getBody(), StandardCharsets.UTF_8);
-                System.out.println(" [x] Received '" + response + "'\n");
+                //System.out.println(" [x] Received '" + response + "'\n");
 
-                /*String[] fields = response.split("#");
+                String[] fields = response.split("#");
 
                 try {
                     int compCode = Integer.parseInt(fields[0]);
@@ -46,16 +46,17 @@ public class Client {
                     if (compCode == 0) {
                         System.out.println("\nQuery:");
                         for (int i = 1; i < fields.length - 1; ++i) {
-                            System.out.println(fields[i]);
+                            System.out.print(fields[i]);
+                            System.out.print("; ");
                         }
-                        System.out.println("Result:");
+                        System.out.println("\nResult:");
                         System.out.println(fields[fields.length - 1]);
                     } else {
                         System.out.println("Error while processing query");
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid response from server");
-                }*/
+                }
             };
             channelToClient.basicConsume("toClient", true, deliverCallback, consumerTag -> { });
             return 0;
