@@ -78,7 +78,7 @@ public class Client {
         client.sendQuery("Add_employee_in_unit#Petya#false#4#Unit-0");
         client.sendQuery("Add_employee_in_unit#Semen#true#5#Unit-1");
         client.sendQuery("Add_employee_in_unit#Gosha#false#6#Unit-1");
-        client.sendQuery("Add_employee_in_unit#Nazar#false#7#Unit-2");
+        client.sendQuery("Add_employee_in_unit#Nazar#true#7#Unit-2");
 
         client.sendQuery("Add_employee_in_unit#Illya#false#8#Unit-5");
 
