@@ -12,7 +12,7 @@ import java.util.concurrent.TimeoutException;
 
 public class Client {
     private Connection connection;
-
+    private String response;
     Channel channelFromClient;
     Channel channelToClient;
     private static final String split = "#";
@@ -30,42 +30,41 @@ public class Client {
 
 
     private int sendQuery(String query) {
+        response = "";
         try {
             channelFromClient.basicPublish("", "fromClient", null, query.getBytes(StandardCharsets.UTF_8));
-            System.out.println(" [x] Sent '" + query + "'\n");
-            Thread.sleep(1000);
+            System.out.println("\n[x] Sent '" + query + "'");
+
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-                String response = new String(delivery.getBody(), StandardCharsets.UTF_8);
-                //System.out.println(" [x] Received '" + response + "'\n");
-
-                String[] fields = response.split("#");
-
-                try {
-                    int compCode = Integer.parseInt(fields[0]);
-
-                    if (compCode == 0) {
-                        System.out.println("\nQuery:");
-                        for (int i = 1; i < fields.length - 1; ++i) {
-                            System.out.print(fields[i]);
-                            System.out.print("; ");
-                        }
-                        System.out.println("\nResult:");
-                        System.out.println(fields[fields.length - 1]);
-                    } else {
-                        System.out.println("Error while processing query");
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid response from server");
-                }
+                response = new String(delivery.getBody(), StandardCharsets.UTF_8);
             };
-            channelToClient.basicConsume("toClient", true, deliverCallback, consumerTag -> { });
+
+            while (response.equals("")) {
+                channelToClient.basicConsume("toClient", true, deliverCallback, consumerTag -> {
+                });
+            }
+
+            String[] fields = response.split("#");
+
+            int compCode = Integer.parseInt(fields[0]);
+
+            if (compCode == 0) {
+                System.out.println("Query:");
+                for (int i = 1; i < fields.length - 1; ++i) {
+                    System.out.print(fields[i]);
+                    System.out.print("; ");
+                }
+                System.out.println("\nResult:");
+                System.out.println(fields[fields.length - 1]);
+            } else {
+                System.out.println("Error while processing query");
+            }
+
             return 0;
         } catch (Exception e) {
             System.out.println(">>     " + e.getMessage());
             return -1;
         }
-
-
     }
 
     /*public void cleanMessage() {

@@ -42,12 +42,12 @@ public class Server {
         channelFromClient.queueDeclare("fromClient", false, false, false, null);
         channelToClient.queueDeclare("toClient", false, false, false, null);
 
-        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+        System.out.println("[*] Waiting for messages. To exit press CTRL+C");
 
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             String query = new String(delivery.getBody(), StandardCharsets.UTF_8);
 
-            System.out.println(" [x] Received '" + query + "'\n");
+            System.out.println("[x] Received '" + query + "'\n");
             String response = processQuery(query);
 
             channelToClient.basicPublish("", "toClient", null, response.getBytes(StandardCharsets.UTF_8));
@@ -67,7 +67,6 @@ public class Server {
                 DepartmentUnit departmentUnit;
                 Employee employee;
 
-//                System.out.println(queryType);
                 response = compCode + "#";
                 switch (queryType) {
                     case Add_new_unit -> {
@@ -136,7 +135,8 @@ public class Server {
     public void close() {
         try {
             connection.close();
-        } catch (IOException e) {
+            departmentDAO.stop();
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
     }
