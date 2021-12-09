@@ -14,10 +14,9 @@ import java.util.concurrent.TimeoutException;
 public class Server {
     private Connection connection;
 
-
     DAOInterface departmentDAO;
 
-    public static enum Query {
+    public enum Query {
         Add_new_unit,
         Delete_unit,
         Add_employee_in_unit,
