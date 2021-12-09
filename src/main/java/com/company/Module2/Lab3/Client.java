@@ -39,9 +39,10 @@ public class Client {
                 if (compCode == 0) {
                     System.out.println("\n\nQuery:");
                     for (int i = 1; i < fields.length - 1; ++i) {
-                        System.out.println(fields[i]);
+                        System.out.print(fields[i]);
+                        System.out.print("; ");
                     }
-                    System.out.println("Result:");
+                    System.out.println("\nResult:");
                     System.out.println(fields[fields.length - 1]);
                     return 0;
                 } else {
