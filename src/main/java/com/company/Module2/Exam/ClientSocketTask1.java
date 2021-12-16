@@ -73,7 +73,7 @@ public class ClientSocketTask1 {
         client.sendQuery("Students_of_faculty#FKNK");
         client.sendQuery("Students_of_faculty#FIZ");
 
-        client.sendQuery("Students_birth_after_date#200-05-05");
+        client.sendQuery("Students_birth_after_date#2000-05-05");
 
         client.sendQuery("Students_from_group#EPS-31");
 

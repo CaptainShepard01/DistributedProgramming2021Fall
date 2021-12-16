@@ -7,7 +7,6 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class ServerSocketTask1 {
     private Socket socket = null;
@@ -32,19 +31,17 @@ public class ServerSocketTask1 {
             studentDao.addStudent(new Student(3, "Frank", "Jakarta", LocalDate.parse("2002-05-05"), "Address2", "5686579675", Student.Faculty.FIZ, "3", "FIZ-2"));
 
             server = new ServerSocket(port);
-            int i = 0;
-            while (i++ < 5) {
+            while (true) {
                 System.out.println("Waiting for a client ...");
-                new Thread(()->{
+                socket = server.accept();
+                System.out.println("Client connected");
+                new Thread(() -> {
                     try {
-                        socket = server.accept();
-                        System.out.println("Client connected");
-
                         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                         out = new PrintWriter(socket.getOutputStream(), true);
 
                         while (processQuery()) ;
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }).start();
