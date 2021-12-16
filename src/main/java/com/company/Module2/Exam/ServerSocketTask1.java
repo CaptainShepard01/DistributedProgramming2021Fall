@@ -9,10 +9,7 @@ import java.net.Socket;
 import java.time.LocalDate;
 
 public class ServerSocketTask1 {
-    private Socket socket = null;
     private ServerSocket server = null;
-    private BufferedReader in = null;
-    private PrintWriter out = null;
     private static StudentDao studentDao;
 
     public static enum Query {
@@ -33,14 +30,14 @@ public class ServerSocketTask1 {
             server = new ServerSocket(port);
             while (true) {
                 System.out.println("Waiting for a client ...");
-                socket = server.accept();
+                final Socket socket = server.accept();
                 System.out.println("Client connected");
                 new Thread(() -> {
                     try {
-                        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                        out = new PrintWriter(socket.getOutputStream(), true);
+                        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
-                        while (processQuery()) ;
+                        while (processQuery(in, out)) ;
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -51,7 +48,7 @@ public class ServerSocketTask1 {
         }
     }
 
-    private boolean processQuery() {
+    private boolean processQuery(BufferedReader in, PrintWriter out) {
         int compCode = 0;
         try {
             String query = in.readLine();
