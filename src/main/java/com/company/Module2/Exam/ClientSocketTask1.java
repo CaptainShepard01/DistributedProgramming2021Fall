@@ -37,12 +37,13 @@ public class ClientSocketTask1 {
                 int compCode = Integer.parseInt(fields[0]);
 
                 if (compCode == 0) {
-                    System.out.println("\n\nQuery:");
-                    for (int i = 1; i < fields.length - 1; ++i) {
-                        System.out.print(fields[i]);
-                        System.out.print("; ");
-                    }
-                    System.out.println("\nResult:");
+                    System.out.print("\nQuery: ");
+                    System.out.println(query);
+
+                    System.out.print("CompCode: ");
+                    System.out.println(fields[0]);
+
+                    System.out.println("Result:");
                     System.out.println(fields[fields.length - 1]);
                     return 0;
                 } else {
